@@ -3,7 +3,7 @@ import MyPosts from "./MyPosts/MyPosts";
 
 const Profile = () => {
   return (
-    <div className={classes.content}>
+    <div>
       <div>
         <img src="https://www.markgray.com.au/images/gallery/large/desert-light.jpg" />
       </div>
