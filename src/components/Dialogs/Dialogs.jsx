@@ -1,32 +1,39 @@
 import styles from './Dialogs.module.css'
+import {NavLink} from "react-router-dom";
+
+const DialogItem = (props) => {
+  const path = `/dialogs/${props.id}`;
+
+  return (
+    <li className={styles.dialog}>
+      <NavLink to={path} activeClassName={styles.active}>{props.name}</NavLink>
+    </li>
+  );
+};
+
+const Message = (props) => {
+  return (
+    <li className={styles.message}>{props.message}</li>  /*prop наверно лучше поменять на text*/
+  );
+};
 
 const Dialogs = (props) => {
   return (
     <section className={styles.dialogsBlock}>
       <ul className={styles.dialogs}>
-        <li className={styles.dialog + ' ' + styles.active}>
-          Dimych
-        </li>
-        <li className={styles.dialog}>
-          Andrey
-        </li>
-        <li className={styles.dialog}>
-          Sveta
-        </li>
-        <li className={styles.dialog}>
-          Sasha
-        </li>
-        <li className={styles.dialog}>
-          Viktor
-        </li>
-        <li className={styles.dialog}>
-          Valera
-        </li>
+        <DialogItem name="Dimych" id="1" />
+        <DialogItem name="Andrey" id="2" />
+        <DialogItem name="Sveta" id="3" />
+        <DialogItem name="Sasha" id="4" />
+        <DialogItem name="Viktor" id="5" />
+        <DialogItem name="Valera" id="6" />
       </ul>
       <ul className={styles.messages}>
-        <li className={styles.message}>Hi</li>
-        <li className={styles.message}>How is your Yo?</li>
-        <li className={styles.message}>Yo!</li>
+        <Message message="Hi" />
+        <Message message="How is your Yo?" />
+        <Message message="Yo!" />
+        <Message message="Yo!" />
+        <Message message="Yo!" />
       </ul>
     </section>
   );

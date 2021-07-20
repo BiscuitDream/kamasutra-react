@@ -21,7 +21,7 @@ const App = () => {
           <Route path="/news" component={News} />
           <Route path="/music" component={Music} />
           <Route path="/settings" component={Settings} />
-          <Redirect from="/" to="/profile" />
+          {/*<Redirect from="/" to="/profile" />*/}
         </Switch>
       </div>
     </div>
