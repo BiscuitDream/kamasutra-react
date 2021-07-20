@@ -1,15 +1,11 @@
 import classes from './Profile.module.css';
+import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import MyPosts from "./MyPosts/MyPosts";
 
 const Profile = () => {
   return (
     <div>
-      <div>
-        <img src="https://www.markgray.com.au/images/gallery/large/desert-light.jpg" />
-      </div>
-      <div>
-        ava + description
-      </div>
+      <ProfileInfo />
       <MyPosts />
     </div>
   );
