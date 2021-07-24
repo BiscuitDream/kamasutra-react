@@ -35,16 +35,16 @@ const Dialogs = (props) => {
     { id: 5, text: 'Yo!'},
   ];
 
-  const dialogsItems = dialogsData.map(elem => <DialogItem name={elem.name} id={elem.id} />);
-  const messagesItems = messagesData.map(elem => <Message text={elem.text} />)
+  const dialogsElements = dialogsData.map(elem => <DialogItem name={elem.name} id={elem.id} />);
+  const messagesElements = messagesData.map(elem => <Message text={elem.text} />)
 
   return (
     <section className={styles.dialogsBlock}>
       <ul className={styles.dialogs}>
-        {dialogsItems}
+        {dialogsElements}
       </ul>
       <ul className={styles.messages}>
-        {messagesItems}
+        {messagesElements}
       </ul>
     </section>
   );

@@ -7,7 +7,7 @@ const MyPosts = () => {
     { id: 2, message: 'It\'s my first post', likesCount: 20 },
   ];
 
-  const postsItems = postsData.map(elem => <Post message={elem.message} likesCount={elem.likesCount} />);
+  const postsElements = postsData.map(elem => <Post message={elem.message} likesCount={elem.likesCount} />);
 
   return (
     <div className={styles.postsBlock}>
@@ -21,7 +21,7 @@ const MyPosts = () => {
         </div>
       </div>
       <div className={styles.posts}>
-        {postsItems}
+        {postsElements}
       </div>
     </div>
   );
