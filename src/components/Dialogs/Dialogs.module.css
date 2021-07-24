@@ -9,20 +9,8 @@
   list-style: none;
 }
 
-.dialog {
-
-}
-
-.active {
-  color: gold;
-}
-
 .messages {
   margin: 0;
   padding: 10px;
   list-style: none;
-}
-
-.message {
-
 }

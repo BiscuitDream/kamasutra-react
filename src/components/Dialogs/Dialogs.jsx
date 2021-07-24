@@ -1,21 +1,6 @@
 import styles from './Dialogs.module.css'
-import {NavLink} from "react-router-dom";
-
-const DialogItem = (props) => {
-  const path = `/dialogs/${props.id}`;
-
-  return (
-    <li className={styles.dialog}>
-      <NavLink to={path} activeClassName={styles.active}>{props.name}</NavLink>
-    </li>
-  );
-};
-
-const Message = (props) => {
-  return (
-    <li className={styles.message}>{props.text}</li>  /*prop наверно лучше поменять на text*/
-  );
-};
+import DialogItem from "./DialogItem/DialogItem";
+import Message from "./Message/Message";
 
 const Dialogs = (props) => {
   const dialogsData = [
