@@ -24,10 +24,11 @@ const state = {
       { id: 4, text: 'Yo!'},
       { id: 5, text: 'Yo!'},
     ],
+    newMessageText: 'new message',
   },
 };
 
-window.state = state;
+window.state = state; // не нужно
 
 export const addPost = () => {
   const newPost = {
@@ -43,6 +44,24 @@ export const addPost = () => {
 
 export const updateNewPostText = (newText) => {
   state.profilePage.newPostText = newText;
+  rerenderEntireTree(state);
+};
+
+// new message
+
+export  const updateNewMessageText = (newText) => {
+  state.dialogsPage.newMessageText = newText;
+  rerenderEntireTree(state);
+};
+
+export const sendNewMessage = () => {
+  const newMessage = {
+    id: 6,
+    text: state.dialogsPage.newMessageText,
+  };
+
+  state.dialogsPage.messages.push(newMessage);
+  state.dialogsPage.newMessageText = '';
   rerenderEntireTree(state);
 };
 
