@@ -1,7 +1,7 @@
 let rerenderEntireTree;
 
 export const subscribe = (observer) => {
-  rerenderEntireTree = observer;
+  rerenderEntireTree = observer; // observer pattern // publisher-subscriber pattern
 };
 
 const state = {
