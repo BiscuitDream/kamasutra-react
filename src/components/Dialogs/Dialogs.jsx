@@ -10,13 +10,17 @@ const Dialogs = (props) => {
   const messageInputArea = React.createRef();
 
   const onSendMessage = () => {
-    props.sendNewMessage();
-  }
+    // props.sendNewMessage();
+    const action = {type: 'SEND-NEW-MESSAGE'};
+    props.dispatch(action);
+  };
 
   const onNewMessageChange = () => {
     const text = messageInputArea.current.value;
-    props.updateNewMessageText(text);
-  }
+    // props.updateNewMessageText(text);
+    const action = {type: 'UPDATE-NEW-MESSAGE-TEXT', newText: text};
+    props.dispatch(action);
+  };
 
   return (
     <section className={styles.dialogsBlock}>
