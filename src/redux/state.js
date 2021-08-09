@@ -1,3 +1,8 @@
+const ADD_POST = 'ADD-POST';
+const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
+const SEND_NEW_MESSAGE = 'SEND-NEW-MESSAGE';
+const UPDATE_NEW_MESSAGE_TEXT = 'UPDATE-NEW-MESSAGE-TEXT';
+
 const store = {
   _state: {
     profilePage: {
@@ -67,11 +72,11 @@ const store = {
   //   this._callSubscriber(this.getState());
   // },
   dispatch(action) { // { {type:}  // пихать туда весь код функции бред, лучше вызывать их, да и if else тоже бред
-    if (action.type === 'UPDATE-NEW-POST-TEXT') {
+    if (action.type === UPDATE_NEW_POST_TEXT) {
       this._state.profilePage.newPostText = action.newText;
       this._callSubscriber(this.getState());
     }
-    else if (action.type === 'ADD-POST') {
+    else if (action.type === ADD_POST) {
       const newPost = {
         id: 5,
         message: this._state.profilePage.newPostText,
@@ -82,11 +87,11 @@ const store = {
       this._state.profilePage.newPostText = '';
       this._callSubscriber(this.getState());
     }
-    else if (action.type === 'UPDATE-NEW-MESSAGE-TEXT') {
+    else if (action.type === UPDATE_NEW_MESSAGE_TEXT) {
       this._state.dialogsPage.newMessageText = action.newText;
       this._callSubscriber(this.getState());
     }
-    else if (action.type === 'SEND-NEW-MESSAGE') {
+    else if (action.type === SEND_NEW_MESSAGE) {
       const newMessage = {
         id: 6,
         text: this._state.dialogsPage.newMessageText,
@@ -97,6 +102,32 @@ const store = {
       this._callSubscriber(this.getState());
     }
   },
+};
+
+export const addPostActionCreator = () => {
+  return {
+    type: ADD_POST
+  };
+};
+
+export const updateNewPostTextActionCreator = (text) => {
+  return {
+    type: UPDATE_NEW_POST_TEXT,
+    newText: text
+  };
+};
+
+export const sendNewMessageActionCreator = () => {
+  return {
+    type: SEND_NEW_MESSAGE
+  };
+};
+
+export const updateNewMessageTextActionCreator = (text) => {
+  return {
+    type: UPDATE_NEW_MESSAGE_TEXT,
+    newText: text
+  };
 };
 
 window.store = store; // не нужно, просто для отладки
