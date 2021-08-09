@@ -104,31 +104,13 @@ const store = {
   },
 };
 
-export const addPostActionCreator = () => {
-  return {
-    type: ADD_POST
-  };
-};
+export const addPostActionCreator = () => ({type: ADD_POST});
 
-export const updateNewPostTextActionCreator = (text) => {
-  return {
-    type: UPDATE_NEW_POST_TEXT,
-    newText: text
-  };
-};
+export const updateNewPostTextActionCreator = (text) => ({type: UPDATE_NEW_POST_TEXT, newText: text});
 
-export const sendNewMessageActionCreator = () => {
-  return {
-    type: SEND_NEW_MESSAGE
-  };
-};
+export const sendNewMessageActionCreator = () => ({type: SEND_NEW_MESSAGE});
 
-export const updateNewMessageTextActionCreator = (text) => {
-  return {
-    type: UPDATE_NEW_MESSAGE_TEXT,
-    newText: text
-  };
-};
+export const updateNewMessageTextActionCreator = (text) => ({type: UPDATE_NEW_MESSAGE_TEXT, newText: text});
 
 window.store = store; // не нужно, просто для отладки
 
