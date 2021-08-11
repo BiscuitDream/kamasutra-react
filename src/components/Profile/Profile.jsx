@@ -1,4 +1,4 @@
-import classes from './Profile.module.css';
+import classes from './Profile.module.css'; // TODO переименовать стили в styles
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import MyPosts from "./MyPosts/MyPosts";
 
