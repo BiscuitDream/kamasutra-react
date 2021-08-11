@@ -1,7 +1,8 @@
 const ADD_POST = 'ADD-POST';
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
-const SEND_NEW_MESSAGE = 'SEND-NEW-MESSAGE';
-const UPDATE_NEW_MESSAGE_TEXT = 'UPDATE-NEW-MESSAGE-TEXT';
+
+const SEND_NEW_MESSAGE = 'SEND-NEW-MESSAGE'; // SEND_MESSAGE
+const UPDATE_NEW_MESSAGE_TEXT = 'UPDATE-NEW-MESSAGE-TEXT'; // UPDATE_NEW_MESSAGE_BODY
 
 const store = {
   _state: {
@@ -28,7 +29,7 @@ const store = {
         { id: 4, text: 'Yo!'},
         { id: 5, text: 'Yo!'},
       ],
-      newMessageText: 'new message',
+      newMessageText: '', // newMessageBody
     },
   },
   getState() {
@@ -88,7 +89,7 @@ const store = {
       this._callSubscriber(this.getState());
     }
     else if (action.type === UPDATE_NEW_MESSAGE_TEXT) {
-      this._state.dialogsPage.newMessageText = action.newText;
+      this._state.dialogsPage.newMessageText = action.newText; // action.body
       this._callSubscriber(this.getState());
     }
     else if (action.type === SEND_NEW_MESSAGE) {
@@ -105,12 +106,10 @@ const store = {
 };
 
 export const addPostActionCreator = () => ({type: ADD_POST});
-
 export const updateNewPostTextActionCreator = (text) => ({type: UPDATE_NEW_POST_TEXT, newText: text});
 
-export const sendNewMessageActionCreator = () => ({type: SEND_NEW_MESSAGE});
-
-export const updateNewMessageTextActionCreator = (text) => ({type: UPDATE_NEW_MESSAGE_TEXT, newText: text});
+export const sendNewMessageActionCreator = () => ({type: SEND_NEW_MESSAGE}); // sendMessageCreator
+export const updateNewMessageTextActionCreator = (text) => ({type: UPDATE_NEW_MESSAGE_TEXT, newText: text}); // updateNewMessageBodyCreator
 
 window.store = store; // не нужно, просто для отладки
 
