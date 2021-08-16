@@ -40,35 +40,6 @@ const store = {
     this._callSubscriber = observer; // TODO observer pattern // publisher-subscriber pattern// почитать про паттерн
   },
 
-  // updateNewPostText(newText) {
-  //   this._state.profilePage.newPostText = newText;
-  //   this._callSubscriber(this.getState());
-  // },
-  // addPost() {
-  //   const newPost = {
-  //     id: 5,
-  //     message: this._state.profilePage.newPostText,
-  //     likesCount: 0,
-  //   };
-  //
-  //   this._state.profilePage.posts.push(newPost);
-  //   this._state.profilePage.newPostText = '';
-  //   this._callSubscriber(this.getState());
-  // },
-  // updateNewMessageText(newText) {
-  //   this._state.dialogsPage.newMessageText = newText;
-  //   this._callSubscriber(this.getState());
-  // },
-  // sendNewMessage() {
-  //   const newMessage = {
-  //     id: 6,
-  //     text: this._state.dialogsPage.newMessageText,
-  //   };
-  //
-  //   this._state.dialogsPage.messages.push(newMessage);
-  //   this._state.dialogsPage.newMessageText = '';
-  //   this._callSubscriber(this.getState());
-  // },
   dispatch(action) { // { {type:}  // пихать туда весь код функции бред, лучше вызывать их, да и if else тоже бред
     this._state.profilePage = profileReducer(this._state.profilePage, action);
     this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action);
