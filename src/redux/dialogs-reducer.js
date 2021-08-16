@@ -5,19 +5,21 @@ export const sendNewMessageActionCreator = () => ({type: SEND_NEW_MESSAGE}); // 
 export const updateNewMessageTextActionCreator = (text) => ({type: UPDATE_NEW_MESSAGE_TEXT, newText: text}); // updateNewMessageBodyCreator
 
 const dialogsReducer = (state, action) => {
-  if (action.type === UPDATE_NEW_MESSAGE_TEXT) {
-    state.newMessageText = action.newText; // action.body
+  switch (action.type) {
+    case UPDATE_NEW_MESSAGE_TEXT:
+      state.newMessageText = action.newText; // action.body
+      return state;
+    case SEND_NEW_MESSAGE:
+      const newMessage = {
+        id: 6,
+        text: state.newMessageText,
+      };
+      state.messages.push(newMessage);
+      state.newMessageText = '';
+      return state;
+    default:
+      return state;
   }
-  else if (action.type === SEND_NEW_MESSAGE) {
-    const newMessage = {
-      id: 6,
-      text: state.newMessageText,
-    };
-    state.messages.push(newMessage);
-    state.newMessageText = '';
-  }
-
-  return state;
 };
 
 export default dialogsReducer;
