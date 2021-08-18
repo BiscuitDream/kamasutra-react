@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import {BrowserRouter} from "react-router-dom";
-import store from './redux/store';
+import store from './redux/redux-store';
 
 const rerenderEntireTree = (state) => { // TODO параметры функции надо переделать по хорошему. state тут не используется ведь
   ReactDOM.render(
