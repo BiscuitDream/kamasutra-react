@@ -6,21 +6,20 @@ import App from './App';
 import {BrowserRouter} from "react-router-dom";
 import store from './redux/redux-store';
 
-const rerenderEntireTree = (state) => { // TODO параметры функции надо переделать по хорошему. state тут не используется ведь
+const rerenderEntireTree = (store) => { // TODO параметры функции надо переделать по хорошему. state тут не используется ведь
   ReactDOM.render(
     <React.StrictMode>
       <BrowserRouter>
-        <App state={store.getState()}
-             dispatch={store.dispatch.bind(store)} />
+        <App store={store} />
       </BrowserRouter>
     </React.StrictMode>,
     document.getElementById('root')
   );
 };
 
-rerenderEntireTree(store.getState());
+rerenderEntireTree(store);
 
-store.subscribe(rerenderEntireTree);
+store.subscribe(() => rerenderEntireTree(store));
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
