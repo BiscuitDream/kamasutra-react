@@ -8,7 +8,7 @@ import News from "./components/News/News";
 import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
 
-const App = (props) => {
+const App = () => {
   return (
     <div className="app-wrapper">
       <Header />
@@ -16,9 +16,9 @@ const App = (props) => {
       <div className="app-wrapper-content">
         <Switch>
           <Route path="/profile"
-                 render={() => <Profile store={props.store} />} />
+                 render={() => <Profile />} />
           <Route path="/dialogs"
-                 render={() => <DialogsContainer store={props.store} />} />
+                 render={() => <DialogsContainer />} />
           <Route path="/news" component={News} />
           <Route path="/music" component={Music} />
           <Route path="/settings" component={Settings} />
