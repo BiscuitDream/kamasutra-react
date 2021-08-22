@@ -22,7 +22,7 @@ const rerenderEntireTree = (store) => { // TODO параметры функци�
 
 rerenderEntireTree(store);
 
-store.subscribe(() => rerenderEntireTree(store));
+// store.subscribe(() => rerenderEntireTree(store));
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
