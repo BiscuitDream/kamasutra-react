@@ -1,22 +1,25 @@
 import React from 'react';
 import styles from './Users.module.css';
+import axios from "axios";
+import userPhoto from "../../assets/images/user.png";
 
 const Users = (props) => {
-
-  if (props.users.length === 0) {
-    props.setUsers([
-      {id: 1, photoUrl: 'https://image.flaticon.com/icons/png/512/194/194938.png', followed: false, fullName: 'Dmitry', status: 'I am a boss', location: {city: 'Minsk', country: 'Belarus'}},
-      {id: 2, photoUrl: 'https://image.flaticon.com/icons/png/512/194/194938.png', followed: true, fullName: 'Sasha', status: 'I am a boss too', location: {city: 'Moscow', country: 'Russia'}},
-      {id: 3, photoUrl: 'https://image.flaticon.com/icons/png/512/194/194938.png', followed: false, fullName: 'Andrey', status: 'I am a boss too', location: {city: 'Kiev', country: 'Ukraine'}},
-    ]);
-  }
+  const getUsers = () => {
+    if (props.users.length === 0) {
+      axios.get("https://social-network.samuraijs.com/api/1.0/users")
+        .then(response => {
+          props.setUsers(response.data.items);
+        });
+    }
+  };
 
   return (
     <div>
+      <button onClick={getUsers}>Get users</button>
       {props.users.map((user) => <div key={user.id}>
         <span>
           <div>
-            <img className={styles.userPhoto} src={user.photoUrl} width="100px" />
+            <img className={styles.userPhoto} src={user.photos.small || userPhoto} width="100px" />
           </div>
           <div>
             {user.followed
@@ -26,12 +29,12 @@ const Users = (props) => {
         </span>
         <span>
           <span>
-            <div>{user.fullName}</div>
+            <div>{user.name}</div>
             <div>{user.status}</div>
           </span>
           <span>
-            <div>{user.location.country}</div>
-            <div>{user.location.city}</div>
+            <div>{"user.location.country"}</div>
+            <div>{"user.location.city"}</div>
           </span>
         </span>
       </div>)}

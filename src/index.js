@@ -20,7 +20,7 @@ const rerenderEntireTree = (store) => { // TODO параметры функци�
   );
 };
 
-rerenderEntireTree(store);
+rerenderEntireTree(store); // TODO надо бы убрать вызов функции. убрать оборачивание в фукнцию и сразу вызывать рендер
 
 // store.subscribe(() => rerenderEntireTree(store));
 
