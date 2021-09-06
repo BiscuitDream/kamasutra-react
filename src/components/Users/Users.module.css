@@ -1,3 +1,24 @@
+.paginationList {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.paginationList li {
+  cursor: pointer;
+}
+
+.paginationList li:not(:last-child) {
+  margin-right: 3px;
+}
+
+.selectedPage {
+  font-weight: bold;
+}
+
 .userPhoto {
   width: 100px;
   height: 100px;
