@@ -4,13 +4,15 @@ const SET_USERS = 'SET-USERS';
 const SET_CURRENT_PAGE = 'SET-CURRENT-PAGE';
 const SET_TOTAL_USERS_COUNT = 'SET-TOTAL-USERS-COUNT';
 const TOGGLE_IS_FETCHING = 'TOGGLE-IS-FETCHING';
+const SET_PORTION_NUMBER = 'SET-PORTION-NUMBER';
 
 const initialState = {
   users: [],
   pageSize: 5,
   totalUsersCount: 0,
   currentPage: 1,
-  isFetching: false
+  isFetching: false,
+  portionNumber: 1
 };
 
 const usersReducer = (state = initialState, action) => {
@@ -61,6 +63,12 @@ const usersReducer = (state = initialState, action) => {
         isFetching: action.isFetching
       };
 
+    case SET_PORTION_NUMBER:
+      return {
+        ...state,
+        portionNumber: action.portionNumber
+      };
+
     default:
       return state;
   }
@@ -72,5 +80,6 @@ export const setUsersAC = (users) => ({type: SET_USERS, users});
 export const setCurrentPageAC = (currentPage) => ({type: SET_CURRENT_PAGE, currentPage});
 export const setTotalUsersCountAC = (totalUsersCount) => ({type: SET_TOTAL_USERS_COUNT, totalUsersCount});
 export const toggleIsFetchingAC = (isFetching) => ({type: TOGGLE_IS_FETCHING, isFetching});
+export const setPortionNumberAC = (portionNumber) => ({type: SET_PORTION_NUMBER, portionNumber});
 
 export default usersReducer;

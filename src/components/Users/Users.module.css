@@ -1,3 +1,7 @@
+.pagination {
+  display: flex;
+}
+
 .paginationList {
   margin: 0;
   padding: 0;

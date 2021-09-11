@@ -3,6 +3,7 @@ import {connect} from "react-redux";
 import {
   followAC,
   setCurrentPageAC,
+  setPortionNumberAC,
   setTotalUsersCountAC,
   setUsersAC,
   toggleIsFetchingAC,
@@ -46,6 +47,8 @@ class UsersAPIContainer extends React.Component {
                users={this.props.users}
                unfollow={this.props.unfollow}
                follow={this.props.follow}
+               portionNumber={this.props.portionNumber}
+               setPortionNumber={this.props.setPortionNumber}
         />
       </>
     );
@@ -58,7 +61,8 @@ const mapStateToProps = (state) => {
     pageSize: state.usersPage.pageSize,
     totalUsersCount: state.usersPage.totalUsersCount,
     currentPage: state.usersPage.currentPage,
-    isFetching: state.usersPage.isFetching
+    isFetching: state.usersPage.isFetching,
+    portionNumber: state.usersPage.portionNumber
   };
 };
 
@@ -81,6 +85,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     toggleIsFetching: (isFetching) => {
       dispatch(toggleIsFetchingAC(isFetching));
+    },
+    setPortionNumber: (portionNumber) => {
+      dispatch(setPortionNumberAC(portionNumber));
     }
   };
 };

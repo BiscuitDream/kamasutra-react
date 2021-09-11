@@ -3,21 +3,37 @@ import styles from './Users.module.css';
 import userPhoto from "../../assets/images/user.png";
 
 const Users = (props) => { // TODO пользователей заменить на список и убрать бредовую разметку. сейчас блочные элементы в строковые вложены
+  // TODO Пагинацию в отдельную компоненту
   const pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
+  const portionSize = 10;
+  const portionsCount = Math.ceil(pagesCount / portionSize);
+  let leftPortionPageNumber = (props.portionNumber - 1) * portionSize + 1;
+  let rightPortionPageNumber = props.portionNumber * portionSize;
 
-  const pages = [];
+  const pageNumbers = [];
   for (let i = 1; i <= pagesCount; i++) {
-    const page = <li className={(props.currentPage === i) && styles.selectedPage}
-                     onClick={() => props.onPageChanged(i)}>{i}</li>; // TODO по идее надо обработчик вешать не на все страницы, а на список просто
-    pages.push(page);
+    pageNumbers.push(i);
   }
 
-  return ( // TODO переделать пагинацию. там сейчас список из 100500 страниц
+  const pages = pageNumbers
+    .filter((num) => (leftPortionPageNumber <= num && num <= rightPortionPageNumber))
+    .map((num) => {
+      return <li className={(props.currentPage === num) && styles.selectedPage}
+                 onClick={() => props.onPageChanged(num)}>{num}</li>
+    });
+
+  return (
     <div>
-      <div>
+      <div className={styles.pagination}>
+        {props.portionNumber > 1 ?
+          <button onClick={() => props.setPortionNumber(props.portionNumber - 1)}>Prev</button> :
+          null}
         <ul className={styles.paginationList}>
           {pages}
         </ul>
+        {props.portionNumber < portionsCount ?
+          <button onClick={() => props.setPortionNumber(props.portionNumber + 1)}>Next</button> :
+          null}
       </div>
       {props.users.map((user) => (
         <div key={user.id}>
