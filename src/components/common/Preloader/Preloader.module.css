@@ -10,8 +10,8 @@
 .preloader {
   width: 200px;
   height: 200px;
-  position: fixed;
-  top: 50%;
+  position: absolute;
+  top: 50vh;
   left: 50%;
   transform: translate(-50%, -50%);
 }
