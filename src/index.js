@@ -7,22 +7,16 @@ import {BrowserRouter} from "react-router-dom";
 import store from './redux/redux-store';
 import {Provider} from "react-redux";
 
-const rerenderEntireTree = (store) => { // TODO параметры функции надо переделать по хорошему. state тут не используется ведь
-  ReactDOM.render(
-    <React.StrictMode>
-      <BrowserRouter>
-        <Provider store={store}>
-          <App />
-        </Provider>
-      </BrowserRouter>
-    </React.StrictMode>,
-    document.getElementById('root')
-  );
-};
-
-rerenderEntireTree(store); // TODO надо бы убрать вызов функции. убрать оборачивание в фукнцию и сразу вызывать рендер
-
-// store.subscribe(() => rerenderEntireTree(store));
+ReactDOM.render(
+  <React.StrictMode>
+    <BrowserRouter>
+      <Provider store={store}>
+        <App />
+      </Provider>
+    </BrowserRouter>
+  </React.StrictMode>,
+  document.getElementById('root')
+);
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
