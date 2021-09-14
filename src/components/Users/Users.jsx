@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './Users.module.css';
 import userPhoto from "../../assets/images/user.png";
+import {Link} from "react-router-dom";
 
 const Users = (props) => { // TODO пользователей заменить на список и убрать бредовую разметку. сейчас блочные элементы в строковые вложены
   // TODO Пагинацию в отдельную компоненту
@@ -35,11 +36,14 @@ const Users = (props) => { // TODO пользователей заменить �
           <button onClick={() => props.setPortionNumber(props.portionNumber + 1)}>Next</button> :
           null}
       </div>
+
       {props.users.map((user) => (
         <div key={user.id}>
         <span>
           <div>
-            <img className={styles.userPhoto} src={user.photos.small || userPhoto} width="100px" />
+            <Link to={`/profile/${user.id}`}>
+              <img className={styles.userPhoto} src={user.photos.small || userPhoto} width="100px" />
+            </Link>
           </div>
           <div>
             {user.followed

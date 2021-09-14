@@ -55,7 +55,7 @@ class UsersAPIContainer extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state) => { // TODO возврат можно убрать
   return {
     users: state.usersPage.users,
     pageSize: state.usersPage.pageSize,

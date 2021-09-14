@@ -2,10 +2,11 @@ import classes from './Profile.module.css'; // TODO переименовать �
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import MyPostsContainer from "./MyPosts/MyPostsContainer";
 
-const Profile = () => {
+const Profile = (props) => {
+  console.log(props)
   return (
     <div>
-      <ProfileInfo />
+      <ProfileInfo userProfile={props.userProfile} />
       <MyPostsContainer />
     </div>
   );
