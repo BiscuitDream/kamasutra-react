@@ -1,3 +1,4 @@
+// React, Redux, CSS Modules, axios, react-router-dom(Switch, Route, NavLink, Link, withRouter)
 import reportWebVitals from './reportWebVitals';
 import React from 'react';
 import ReactDOM from 'react-dom';
