@@ -1,8 +1,19 @@
 .header {
+  padding: 10px;
   grid-area: h;
   background-color: green;
+  display: flex;
+  align-items: center;
 }
 
 .header img {
   width: 50px;
+}
+
+.loginBlock {
+  margin-left: auto;
+}
+
+.loginLink {
+  color: white;
 }
