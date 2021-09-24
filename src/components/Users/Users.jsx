@@ -2,6 +2,7 @@ import React from 'react';
 import styles from './Users.module.css';
 import userPhoto from "../../assets/images/user.png";
 import {Link} from "react-router-dom";
+import axios from "axios";
 
 const Users = (props) => { // TODO пользователей заменить на список и убрать бредовую разметку. сейчас блочные элементы в строковые вложены
   // TODO Пагинацию в отдельную компоненту
@@ -19,9 +20,35 @@ const Users = (props) => { // TODO пользователей заменить �
   const pages = pageNumbers
     .filter((num) => (leftPortionPageNumber <= num && num <= rightPortionPageNumber))
     .map((num) => {
-      return <li className={(props.currentPage === num) && styles.selectedPage}
+      return <li className={props.currentPage === num ? styles.selectedPage : undefined}
                  onClick={() => props.onPageChanged(num)}>{num}</li>
     });
+
+  const onFollow = (id) => {
+    axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${id}`, {}, {
+      withCredentials: true,
+      headers: {
+        'API-KEY': 'f6c84f1f-526b-455b-b54c-ae0f09e46ef0'
+      }
+    }).then(response => {
+        if (response.data.resultCode === 0) {
+          props.follow(id);
+        }
+      });
+  };
+
+  const onUnFollow = (id) => {
+    axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${id}`, {
+      withCredentials: true,
+      headers: {
+        'API-KEY': 'f6c84f1f-526b-455b-b54c-ae0f09e46ef0'
+      }
+    }).then(response => {
+        if (response.data.resultCode === 0) {
+          props.unfollow(id);
+        }
+      });
+  };
 
   return (
     <div>
@@ -47,8 +74,8 @@ const Users = (props) => { // TODO пользователей заменить �
           </div>
           <div>
             {user.followed
-              ? <button onClick={() => {props.unfollow(user.id)}}>Unfollow</button>
-              : <button onClick={() => {props.follow(user.id)}}>Follow</button>}
+              ? <button onClick={() => {onUnFollow(user.id)}}>Unfollow</button>
+              : <button onClick={() => {onFollow(user.id)}}>Follow</button>}
           </div>
         </span>
           <span>
