@@ -24,20 +24,24 @@ const Users = (props) => { // TODO пользователей заменить �
                  onClick={() => props.onPageChanged(num)}>{num}</li>
     });
 
-  const onFollow = (id) => {
+  const onFollow = (id) => { // TODO вынести эти функции не уровень выше
+    props.toggleFollowingProgress(true, id);
     api.followUser(id)
       .then(data => {
         if (data.resultCode === 0) {
           props.follow(id);
         }
+        props.toggleFollowingProgress(false, id);
       });
   };
 
   const onUnFollow = (id) => {
+    props.toggleFollowingProgress(true, id);
     api.unFollowUser(id).then(data => {
         if (data.resultCode === 0) {
           props.unfollow(id);
         }
+      props.toggleFollowingProgress(false, id);
       });
   };
 
@@ -65,8 +69,8 @@ const Users = (props) => { // TODO пользователей заменить �
           </div>
           <div>
             {user.followed
-              ? <button onClick={() => {onUnFollow(user.id)}}>Unfollow</button>
-              : <button onClick={() => {onFollow(user.id)}}>Follow</button>}
+              ? <button disabled={props.followingInProgress.some(id => id === user.id)} onClick={() => {onUnFollow(user.id)}}>Unfollow</button>
+              : <button disabled={props.followingInProgress.some(id => id === user.id)} onClick={() => {onFollow(user.id)}}>Follow</button>}
           </div>
         </span>
           <span>

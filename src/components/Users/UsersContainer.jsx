@@ -6,6 +6,7 @@ import {
   setPortionNumber,
   setTotalUsersCount,
   setUsers,
+  toggleFollowingProgress,
   toggleIsFetching,
   unfollow
 } from "../../redux/users-reducer";
@@ -47,6 +48,8 @@ class UsersAPIContainer extends React.Component {
                users={this.props.users}
                unfollow={this.props.unfollow}
                follow={this.props.follow}
+               followingInProgress={this.props.followingInProgress}
+               toggleFollowingProgress={this.props.toggleFollowingProgress}
                portionNumber={this.props.portionNumber}
                setPortionNumber={this.props.setPortionNumber}
         />
@@ -62,6 +65,7 @@ const mapStateToProps = (state) => { // TODO возврат можно убра�
     totalUsersCount: state.usersPage.totalUsersCount,
     currentPage: state.usersPage.currentPage,
     isFetching: state.usersPage.isFetching,
+    followingInProgress: state.usersPage.followingInProgress,
     portionNumber: state.usersPage.portionNumber
   };
 };
@@ -73,6 +77,7 @@ const UsersContainer = connect(mapStateToProps, {
   setCurrentPage,
   setTotalUsersCount,
   toggleIsFetching,
+  toggleFollowingProgress,
   setPortionNumber
 })(UsersAPIContainer);
 
