@@ -69,8 +69,8 @@ const Users = (props) => { // TODO пользователей заменить �
           </div>
           <div>
             {user.followed
-              ? <button disabled={props.followingInProgress.some(id => id === user.id)} onClick={() => {onUnFollow(user.id)}}>Unfollow</button>
-              : <button disabled={props.followingInProgress.some(id => id === user.id)} onClick={() => {onFollow(user.id)}}>Follow</button>}
+              ? <button className={styles.followButton} disabled={props.followingInProgress.some(id => id === user.id)} onClick={() => {onUnFollow(user.id)}}>Unfollow</button>
+              : <button className={styles.followButton} disabled={props.followingInProgress.some(id => id === user.id)} onClick={() => {onFollow(user.id)}}>Follow</button>}
           </div>
         </span>
           <span>

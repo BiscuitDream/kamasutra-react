@@ -29,3 +29,8 @@
   border-radius: 50%;
   background-color: aquamarine;
 }
+
+.followButton[disabled] {
+  cursor: not-allowed;
+  pointer-events: none;
+}
