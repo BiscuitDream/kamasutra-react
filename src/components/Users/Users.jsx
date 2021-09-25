@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './Users.module.css';
 import userPhoto from "../../assets/images/user.png";
 import {Link} from "react-router-dom";
-import axios from "axios";
+import {api} from "../../api/api";
 
 const Users = (props) => { // TODO пользователей заменить на список и убрать бредовую разметку. сейчас блочные элементы в строковые вложены
   // TODO Пагинацию в отдельную компоненту
@@ -25,26 +25,17 @@ const Users = (props) => { // TODO пользователей заменить �
     });
 
   const onFollow = (id) => {
-    axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${id}`, {}, {
-      withCredentials: true,
-      headers: {
-        'API-KEY': 'f6c84f1f-526b-455b-b54c-ae0f09e46ef0'
-      }
-    }).then(response => {
-        if (response.data.resultCode === 0) {
+    api.followUser(id)
+      .then(data => {
+        if (data.resultCode === 0) {
           props.follow(id);
         }
       });
   };
 
   const onUnFollow = (id) => {
-    axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${id}`, {
-      withCredentials: true,
-      headers: {
-        'API-KEY': 'f6c84f1f-526b-455b-b54c-ae0f09e46ef0'
-      }
-    }).then(response => {
-        if (response.data.resultCode === 0) {
+    api.unFollowUser(id).then(data => {
+        if (data.resultCode === 0) {
           props.unfollow(id);
         }
       });
