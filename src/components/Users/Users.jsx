@@ -5,7 +5,7 @@ import {Link} from "react-router-dom";
 import {api} from "../../api/api";
 
 const Users = (props) => { // TODO пользователей заменить на список и убрать бредовую разметку. сейчас блочные элементы в строковые вложены
-  // TODO Пагинацию в отдельную компоненту
+                           // TODO Пагинацию в отдельную компоненту
   const pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
   const portionSize = 10;
   const portionsCount = Math.ceil(pagesCount / portionSize);
@@ -38,11 +38,11 @@ const Users = (props) => { // TODO пользователей заменить �
   const onUnFollow = (id) => {
     props.toggleFollowingProgress(true, id);
     api.unFollowUser(id).then(data => {
-        if (data.resultCode === 0) {
-          props.unfollow(id);
-        }
+      if (data.resultCode === 0) {
+        props.unfollow(id);
+      }
       props.toggleFollowingProgress(false, id);
-      });
+    });
   };
 
   return (
@@ -59,31 +59,37 @@ const Users = (props) => { // TODO пользователей заменить �
           null}
       </div>
 
-      {props.users.map((user) => (
-        <div key={user.id}>
-        <span>
-          <div>
-            <Link to={`/profile/${user.id}`}>
-              <img className={styles.userPhoto} src={user.photos.small || userPhoto} width="100px" />
-            </Link>
-          </div>
-          <div>
-            {user.followed
-              ? <button className={styles.followButton} disabled={props.followingInProgress.some(id => id === user.id)} onClick={() => {onUnFollow(user.id)}}>Unfollow</button>
-              : <button className={styles.followButton} disabled={props.followingInProgress.some(id => id === user.id)} onClick={() => {onFollow(user.id)}}>Follow</button>}
-          </div>
-        </span>
-          <span>
-          <span>
-            <div>{user.name}</div>
-            <div>{user.status}</div>
-          </span>
-          <span>
-            <div>{"user.location.country"}</div>
-            <div>{"user.location.city"}</div>
-          </span>
-        </span>
-        </div>))}
+      <ul className={styles.usersList}>
+        {props.users.map((user) => (
+          <li key={user.id}>
+            <div>
+              <p>
+                <Link to={`/profile/${user.id}`}>
+                  <img className={styles.userPhoto} src={user.photos.small || userPhoto} width="100px"/>
+                </Link>
+              </p>
+              <div>
+                {user.followed
+                  ? <button className={styles.followButton}
+                            disabled={props.followingInProgress.some(id => id === user.id)} onClick={() => {
+                    onUnFollow(user.id)
+                  }}>Unfollow</button>
+                  : <button className={styles.followButton}
+                            disabled={props.followingInProgress.some(id => id === user.id)} onClick={() => {
+                    onFollow(user.id)
+                  }}>Follow</button>}
+              </div>
+            </div>
+            <div>
+              <div>{user.name}</div>
+              <div>{user.status}</div>
+              <div>
+                <div>{"user.location.country"}</div>
+                <div>{"user.location.city"}</div>
+              </div>
+            </div>
+          </li>))}
+      </ul>
     </div>
   );
 };

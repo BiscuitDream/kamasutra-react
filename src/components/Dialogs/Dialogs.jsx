@@ -6,8 +6,8 @@ import React from "react";
 const Dialogs = (props) => {
   const state = props.dialogsPage;
 
-  const dialogsElements = state.dialogs.map(elem => <DialogItem name={elem.name} id={elem.id} />);
-  const messagesElements = state.messages.map(elem => <Message text={elem.text} />)
+  const dialogsElements = state.dialogs.map(elem => <DialogItem name={elem.name} id={elem.id} key={elem.id} />);
+  const messagesElements = state.messages.map(elem => <Message text={elem.text} key={elem.id} />)
   const newMessageText = state.newMessageText;
 
   const onSendMessage = () => {
