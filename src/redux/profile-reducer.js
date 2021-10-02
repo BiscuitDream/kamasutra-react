@@ -48,7 +48,7 @@ export const addPostActionCreator = () => ({type: ADD_POST});
 export const updateNewPostTextActionCreator = (text) => ({type: UPDATE_NEW_POST_TEXT, newText: text});
 const setUserProfile = (profile) => ({type: SET_USER_PROFILE, userProfile: profile}); // TODO может просто userProfile
 
-export const getProfile = (userId) => {
+export const getUserProfile = (userId) => {
   return (dispatch) => {
     api.getProfile(userId).then(data => {
       dispatch(setUserProfile(data));
