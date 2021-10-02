@@ -86,13 +86,13 @@ const usersReducer = (state = initialState, action) => {
   }
 };
 
-export const followSuccess = (userId) => ({type: FOLLOW, userId}); // e
-export const unfollowSuccess = (userId) => ({type: UNFOLLOW, userId}); // e
-export const setUsers = (users) => ({type: SET_USERS, users}); // e
-export const setCurrentPage = (currentPage) => ({type: SET_CURRENT_PAGE, currentPage}); // e
-export const setTotalUsersCount = (totalUsersCount) => ({type: SET_TOTAL_USERS_COUNT, totalUsersCount}); // e
-export const toggleIsFetching = (isFetching) => ({type: TOGGLE_IS_FETCHING, isFetching}); // e
-export const toggleFollowingProgress = (isFetching, userId) => ({type: TOGGLE_FOLLOWING_PROGRESS, isFetching, userId}); // e
+const followSuccess = (userId) => ({type: FOLLOW, userId});
+const unfollowSuccess = (userId) => ({type: UNFOLLOW, userId});
+const setUsers = (users) => ({type: SET_USERS, users});
+const setCurrentPage = (currentPage) => ({type: SET_CURRENT_PAGE, currentPage});
+const setTotalUsersCount = (totalUsersCount) => ({type: SET_TOTAL_USERS_COUNT, totalUsersCount});
+const toggleIsFetching = (isFetching) => ({type: TOGGLE_IS_FETCHING, isFetching});
+const toggleFollowingProgress = (isFetching, userId) => ({type: TOGGLE_FOLLOWING_PROGRESS, isFetching, userId});
 export const setPortionNumber = (portionNumber) => ({type: SET_PORTION_NUMBER, portionNumber});
 
 export const getUsers = (page, pageSize) => {   // thunk creator принимает в параметры нужные данные и возращает thunk, которая через замыкание может достучаться к этим данным

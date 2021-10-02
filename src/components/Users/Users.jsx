@@ -2,7 +2,6 @@ import React from 'react';
 import styles from './Users.module.css';
 import userPhoto from "../../assets/images/user.png";
 import {Link} from "react-router-dom";
-import {api} from "../../api/api";
 
 const Users = (props) => { // TODO пользователей заменить на список и убрать бредовую разметку. сейчас блочные элементы в строковые вложены
                            // TODO Пагинацию в отдельную компоненту
@@ -23,27 +22,6 @@ const Users = (props) => { // TODO пользователей заменить �
       return <li className={props.currentPage === num ? styles.selectedPage : undefined}
                  onClick={() => props.onPageChanged(num)}>{num}</li>
     });
-
-  // const onFollow = (id) => { // TODO вынести эти функции не уровень выше
-  //   props.toggleFollowingProgress(true, id);
-  //   api.followUser(id)
-  //     .then(data => {
-  //       if (data.resultCode === 0) {
-  //         props.follow(id);
-  //       }
-  //       props.toggleFollowingProgress(false, id);
-  //     });
-  // };
-
-  // const onUnFollow = (id) => {
-  //   props.toggleFollowingProgress(true, id);
-  //   api.unFollowUser(id).then(data => {
-  //     if (data.resultCode === 0) {
-  //       props.unfollow(id);
-  //     }
-  //     props.toggleFollowingProgress(false, id);
-  //   });
-  // };
 
   return (
     <div>

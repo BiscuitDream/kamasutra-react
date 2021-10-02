@@ -3,41 +3,21 @@ import {connect} from "react-redux";
 import {
   follow,
   getUsers,
-  setCurrentPage,
   setPortionNumber,
-  setTotalUsersCount,
-  setUsers,
-  toggleFollowingProgress,
-  toggleIsFetching,
   unfollow
 } from "../../redux/users-reducer";
 import Users from "./Users";
 import Preloader from "../common/Preloader/Preloader";
-import {api} from "../../api/api";
 
 class UsersAPIContainer extends React.Component {
   componentDidMount() {
     if (this.props.users.length === 0) {
       this.props.getUsers(this.props.currentPage, this.props.pageSize);
-      // this.props.toggleIsFetching(true);
-      // api.getUsers(this.props.currentPage, this.props.pageSize)
-      //   .then(data => {
-      //     this.props.toggleIsFetching(false);
-      //     this.props.setUsers(data.items);
-      //     this.props.setTotalUsersCount(data.totalCount);
-      //   });
     }
   }
 
   onPageChanged = (pageNumber) => {
     this.props.getUsers(pageNumber, this.props.pageSize);
-    // this.props.setCurrentPage(pageNumber);
-    // this.props.toggleIsFetching(true);
-    // api.getUsers(pageNumber,this.props.pageSize)
-    //   .then(data => {
-    //     this.props.toggleIsFetching(false);
-    //     this.props.setUsers(data.items);
-    //   });
   }
 
   render() {
@@ -52,7 +32,6 @@ class UsersAPIContainer extends React.Component {
                unfollow={this.props.unfollow}
                follow={this.props.follow}
                followingInProgress={this.props.followingInProgress}
-               toggleFollowingProgress={this.props.toggleFollowingProgress}
                portionNumber={this.props.portionNumber}
                setPortionNumber={this.props.setPortionNumber}
         />
@@ -76,11 +55,6 @@ const mapStateToProps = (state) => { // TODO возврат можно убра�
 const UsersContainer = connect(mapStateToProps, {
   follow,
   unfollow,
-  setUsers,
-  setCurrentPage,
-  setTotalUsersCount,
-  toggleIsFetching,
-  toggleFollowingProgress,
   setPortionNumber,
   getUsers
 })(UsersAPIContainer);
