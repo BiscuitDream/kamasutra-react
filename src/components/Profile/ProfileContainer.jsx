@@ -1,9 +1,8 @@
 import React from 'react';
 import {connect} from "react-redux";
 import Profile from "./Profile";
-import {setUserProfile} from "../../redux/profile-reducer";
+import {getProfile} from "../../redux/profile-reducer";
 import {withRouter} from "react-router-dom";
-import {api} from "../../api/api";
 
 class ProfileContainer extends React.Component {
   componentDidMount() {
@@ -11,14 +10,12 @@ class ProfileContainer extends React.Component {
     if (!userId) {
       userId = 2;
     }
-    api.getProfile(userId).then(data => {
-        this.props.setUserProfile(data);
-      });
+    this.props.getProfile(userId);
   }
 
   render() {
     return (
-      <Profile {...this.props} /> // TODO идёт передача всех пропсов, мб надо убрать лишние типа экшкреэйтера '{userProfile: {…}, setUserProfile: ƒ}'
+      <Profile {...this.props} /> // TODO идёт передача всех пропсов, мб надо убрать лишние типа экшкреэйтера '{userProfile: {…}'
     )
   }
 }
@@ -29,4 +26,4 @@ const mapStateToProps = (state) => ({
 
 const WithUrlDataContainerComponent = withRouter(ProfileContainer); // TODO имя придумать лучше
 
-export default connect(mapStateToProps, {setUserProfile})(WithUrlDataContainerComponent);
+export default connect(mapStateToProps, {getProfile})(WithUrlDataContainerComponent);
