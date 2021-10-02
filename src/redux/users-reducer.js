@@ -1,3 +1,5 @@
+import {api} from "../api/api";
+
 const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
 const SET_USERS = 'SET-USERS';
@@ -86,11 +88,24 @@ const usersReducer = (state = initialState, action) => {
 
 export const follow = (userId) => ({type: FOLLOW, userId});
 export const unfollow = (userId) => ({type: UNFOLLOW, userId});
-export const setUsers = (users) => ({type: SET_USERS, users});
+export const setUsers = (users) => ({type: SET_USERS, users}); // e
 export const setCurrentPage = (currentPage) => ({type: SET_CURRENT_PAGE, currentPage});
-export const setTotalUsersCount = (totalUsersCount) => ({type: SET_TOTAL_USERS_COUNT, totalUsersCount});
-export const toggleIsFetching = (isFetching) => ({type: TOGGLE_IS_FETCHING, isFetching});
+export const setTotalUsersCount = (totalUsersCount) => ({type: SET_TOTAL_USERS_COUNT, totalUsersCount}); // e
+export const toggleIsFetching = (isFetching) => ({type: TOGGLE_IS_FETCHING, isFetching}); // e
 export const toggleFollowingProgress = (isFetching, userId) => ({type: TOGGLE_FOLLOWING_PROGRESS, isFetching, userId});
 export const setPortionNumber = (portionNumber) => ({type: SET_PORTION_NUMBER, portionNumber});
+
+export const getUsers = (page, pageSize) => {   // thunk creator принимает в парамметры нужные данные и возращает thunk, которая через замыкание может достучаться к этим данным
+  return (dispatch) => {
+    dispatch(setCurrentPage(page));
+    dispatch(toggleIsFetching(true));
+    api.getUsers(page, pageSize)
+      .then(data => {
+        dispatch(toggleIsFetching(false));
+        dispatch(setUsers(data.items));
+        dispatch(setTotalUsersCount(data.totalCount));
+      });
+  };
+};
 
 export default usersReducer;

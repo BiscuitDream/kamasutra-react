@@ -2,6 +2,7 @@ import React from 'react';
 import {connect} from "react-redux";
 import {
   follow,
+  getUsers,
   setCurrentPage,
   setPortionNumber,
   setTotalUsersCount,
@@ -17,24 +18,26 @@ import {api} from "../../api/api";
 class UsersAPIContainer extends React.Component {
   componentDidMount() {
     if (this.props.users.length === 0) {
-      this.props.toggleIsFetching(true);
-      api.getUsers(this.props.currentPage, this.props.pageSize)
-        .then(data => {
-          this.props.toggleIsFetching(false);
-          this.props.setUsers(data.items);
-          this.props.setTotalUsersCount(data.totalCount);
-        });
+      this.props.getUsers(this.props.currentPage, this.props.pageSize);
+      // this.props.toggleIsFetching(true);
+      // api.getUsers(this.props.currentPage, this.props.pageSize)
+      //   .then(data => {
+      //     this.props.toggleIsFetching(false);
+      //     this.props.setUsers(data.items);
+      //     this.props.setTotalUsersCount(data.totalCount);
+      //   });
     }
   }
 
   onPageChanged = (pageNumber) => {
-    this.props.setCurrentPage(pageNumber);
-    this.props.toggleIsFetching(true);
-    api.getUsers(pageNumber,this.props.pageSize)
-      .then(data => {
-        this.props.toggleIsFetching(false);
-        this.props.setUsers(data.items);
-      });
+    this.props.getUsers(pageNumber, this.props.pageSize);
+    // this.props.setCurrentPage(pageNumber);
+    // this.props.toggleIsFetching(true);
+    // api.getUsers(pageNumber,this.props.pageSize)
+    //   .then(data => {
+    //     this.props.toggleIsFetching(false);
+    //     this.props.setUsers(data.items);
+    //   });
   }
 
   render() {
@@ -58,7 +61,7 @@ class UsersAPIContainer extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => { // TODO возврат можно убрать
+const mapStateToProps = (state) => { // TODO возврат можно убрать. Убрать ненужные
   return {
     users: state.usersPage.users,
     pageSize: state.usersPage.pageSize,
@@ -69,7 +72,7 @@ const mapStateToProps = (state) => { // TODO возврат можно убра�
     portionNumber: state.usersPage.portionNumber
   };
 };
-
+// TODO убрать ненужные
 const UsersContainer = connect(mapStateToProps, {
   follow,
   unfollow,
@@ -78,7 +81,8 @@ const UsersContainer = connect(mapStateToProps, {
   setTotalUsersCount,
   toggleIsFetching,
   toggleFollowingProgress,
-  setPortionNumber
+  setPortionNumber,
+  getUsers
 })(UsersAPIContainer);
 
 export default UsersContainer;
