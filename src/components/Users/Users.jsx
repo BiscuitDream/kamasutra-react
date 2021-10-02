@@ -24,26 +24,26 @@ const Users = (props) => { // TODO пользователей заменить �
                  onClick={() => props.onPageChanged(num)}>{num}</li>
     });
 
-  const onFollow = (id) => { // TODO вынести эти функции не уровень выше
-    props.toggleFollowingProgress(true, id);
-    api.followUser(id)
-      .then(data => {
-        if (data.resultCode === 0) {
-          props.follow(id);
-        }
-        props.toggleFollowingProgress(false, id);
-      });
-  };
+  // const onFollow = (id) => { // TODO вынести эти функции не уровень выше
+  //   props.toggleFollowingProgress(true, id);
+  //   api.followUser(id)
+  //     .then(data => {
+  //       if (data.resultCode === 0) {
+  //         props.follow(id);
+  //       }
+  //       props.toggleFollowingProgress(false, id);
+  //     });
+  // };
 
-  const onUnFollow = (id) => {
-    props.toggleFollowingProgress(true, id);
-    api.unFollowUser(id).then(data => {
-      if (data.resultCode === 0) {
-        props.unfollow(id);
-      }
-      props.toggleFollowingProgress(false, id);
-    });
-  };
+  // const onUnFollow = (id) => {
+  //   props.toggleFollowingProgress(true, id);
+  //   api.unFollowUser(id).then(data => {
+  //     if (data.resultCode === 0) {
+  //       props.unfollow(id);
+  //     }
+  //     props.toggleFollowingProgress(false, id);
+  //   });
+  // };
 
   return (
     <div>
@@ -71,13 +71,13 @@ const Users = (props) => { // TODO пользователей заменить �
               <div>
                 {user.followed
                   ? <button className={styles.followButton}
-                            disabled={props.followingInProgress.some(id => id === user.id)} onClick={() => {
-                    onUnFollow(user.id)
-                  }}>Unfollow</button>
+                            disabled={props.followingInProgress.some(id => id === user.id)}
+                            onClick={() => {props.unfollow(user.id)}}>
+                    Unfollow</button>
                   : <button className={styles.followButton}
-                            disabled={props.followingInProgress.some(id => id === user.id)} onClick={() => {
-                    onFollow(user.id)
-                  }}>Follow</button>}
+                            disabled={props.followingInProgress.some(id => id === user.id)}
+                            onClick={() => {props.follow(user.id)}}>
+                    Follow</button>}
               </div>
             </div>
             <div>
