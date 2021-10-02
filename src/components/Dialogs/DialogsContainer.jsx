@@ -9,7 +9,7 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch) => { // TODO переделать просто в объект с акш креэйторами и передавать его в connect
   return {
     updateNewMessageText: (text) => {
       const action = updateNewMessageTextActionCreator(text);
