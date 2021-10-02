@@ -8,6 +8,7 @@ import Settings from "./components/Settings/Settings";
 import UsersContainer from "./components/Users/UsersContainer";
 import ProfileContainer from "./components/Profile/ProfileContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
+import Login from "./components/Login/Login";
 
 const App = () => { // TODO вспомнить, как делал высоту минимум на весь вьюпорт гридами и флексами
   return (
@@ -25,6 +26,7 @@ const App = () => { // TODO вспомнить, как делал высоту �
           <Route path="/news" component={News} />
           <Route path="/music" component={Music} />
           <Route path="/settings" component={Settings} />
+          <Route path="/login" component={Login} />
           <Redirect from="/" to="/profile" />
         </Switch>
       </div>
