@@ -1,3 +1,5 @@
+import {api} from "../api/api";
+
 const SET_AUTH_USER_DATA = 'SET-AUTH-USER-DATA';
 
 const initialState = {
@@ -22,5 +24,17 @@ const authReducer = (state = initialState, action) => {
 };
 
 export const setAuthUserData = (userId, login, email) => ({type: SET_AUTH_USER_DATA, data: {userId, login, email}});
+
+export const checkAuth = () => {
+  return (dispatch) => {
+    api.checkAuth()
+      .then(data => {
+        if (data.resultCode === 0) {
+          const {id, login, email} = data.data;
+          dispatch(setAuthUserData(id, login, email)); // TODO можно еще профиль залогиненного юзера загрузить и отобразить что-нибудь напр аватар
+        }
+      });
+  }
+};
 
 export default authReducer;

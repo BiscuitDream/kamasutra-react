@@ -1,17 +1,11 @@
 import React from 'react';
 import {connect} from "react-redux";
-import {setAuthUserData} from "../../redux/auth-reducer";
+import {checkAuth} from "../../redux/auth-reducer";
 import Header from "./Header";
-import {api} from "../../api/api";
 
 class HeaderContainer extends React.Component {
   componentDidMount() {
-    api.checkAuth().then(data => {
-        if (data.resultCode === 0) {
-          const {id, login, email} = data.data;
-          this.props.setAuthUserData(id, login, email); // TODO можно еще профиль залогиненного юзера загрузить и отобразить что-нибудь напр аватар
-        }
-      });
+    this.props.checkAuth();
   }
 
   render() {
@@ -26,4 +20,4 @@ const mapStateToProps = (state) => ({
   login: state.auth.login
 });
 
-export default connect(mapStateToProps, {setAuthUserData})(HeaderContainer);
+export default connect(mapStateToProps, {checkAuth})(HeaderContainer);
