@@ -1,4 +1,4 @@
-// React(UI), Redux(BLL), CSS Modules, axios, react-router-dom(Switch, Route, NavLink, Link, withRouter)
+// React(UI), Redux(BLL), Redux Thunk, CSS Modules, axios, react-router-dom(Switch, Route, NavLink, Link, withRouter, Redirect)
 import reportWebVitals from './reportWebVitals';
 import React from 'react';
 import ReactDOM from 'react-dom';
