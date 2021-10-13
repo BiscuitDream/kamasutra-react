@@ -9,7 +9,7 @@ import {
 import Users from "./Users";
 import Preloader from "../common/Preloader/Preloader";
 
-class UsersAPIContainer extends React.Component { // TODO переименовать. тут апи теперь не используется, можно просто экспорт по дефолту, как в другом файле
+class UsersContainer extends React.Component { // TODO переименовать. тут апи теперь не используется, можно просто экспорт по дефолту, как в другом файле
   componentDidMount() {
     if (this.props.users.length === 0) {
       this.props.getUsers(this.props.currentPage, this.props.pageSize);
@@ -52,11 +52,9 @@ const mapStateToProps = (state) => { // TODO возврат можно убра�
   };
 };
 
-const UsersContainer = connect(mapStateToProps, {
+export default connect(mapStateToProps, {
   follow,
   unfollow,
   setPortionNumber,
   getUsers
-})(UsersAPIContainer);
-
-export default UsersContainer;
+})(UsersContainer);
