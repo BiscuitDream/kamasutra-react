@@ -1,5 +1,6 @@
 import styles from './ProfileInfo.module.css';
-import Preloader from "../../common/Preloader/Preloader";
+import Preloader from '../../common/Preloader/Preloader';
+import ProfileStatus from './ProfileStatus/ProfileStatus';
 
 
 const ProfileInfo = (props) => {
@@ -9,12 +10,12 @@ const ProfileInfo = (props) => {
 // TODO добавить больше инфы
   return (
     <div>
-      <div>
+      {/*<div>
         <img src="https://www.markgray.com.au/images/gallery/large/desert-light.jpg" />
-      </div>
+      </div>*/}
       <div className={styles.descriptionBlock}>
         <p><img src={props.userProfile.photos.large} /></p>
-        ava + description
+        <ProfileStatus status={"Hello my friends!"} />
       </div>
     </div>
   );
