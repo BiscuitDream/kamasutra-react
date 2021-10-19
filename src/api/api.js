@@ -14,6 +14,7 @@ export const api = {
       .get(`users?page=${currentPage}&count=${pageSize}`)
       .then(response => response.data);
   },
+
   followUser(userId) {
     return axiosInstance
       .post(`follow/${userId}`)
@@ -24,14 +25,26 @@ export const api = {
       .delete(`follow/${userId}`)
       .then(response => response.data);
   },
+
   checkAuth() {
     return axiosInstance
       .get('auth/me')
       .then(response => response.data);
   },
+
   getProfile(userId) {
     return axiosInstance
       .get(`profile/${userId}`)
+      .then(response => response.data);
+  },
+  getStatus(userId) {
+    return axiosInstance
+      .get(`/profile/status/${userId}`)
+      .then(response => response.data);
+  },
+  updateStatus(status) {
+    return axiosInstance
+      .put('/profile/status', {status: status})
       .then(response => response.data);
   }
 };
