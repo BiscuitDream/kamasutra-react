@@ -1,5 +1,5 @@
 import React from "react";
-import {sendNewMessageActionCreator, updateNewMessageTextActionCreator} from "../../redux/dialogs-reducer";
+import {sendNewMessageActionCreator} from "../../redux/dialogs-reducer";
 import Dialogs from "./Dialogs";
 import {connect} from "react-redux";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
@@ -13,12 +13,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => { // TODO переделать просто в объект с акш креэйторами и передавать его в connect
   return {
-    updateNewMessageText: (text) => {
-      const action = updateNewMessageTextActionCreator(text);
-      dispatch(action);
-    },
-    sendNewMessage: () => {
-      const action = sendNewMessageActionCreator();
+    sendNewMessage: (newMessageText) => {
+      const action = sendNewMessageActionCreator(newMessageText);
       dispatch(action);
     }
   };

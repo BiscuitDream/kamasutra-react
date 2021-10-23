@@ -7,25 +7,20 @@
 // Контейнерная компонента создаётся для того, чтобы функциональная могла остаться функциональной: чистой и простой!
 // Функциональной компоненте нужны данные! Вот контейнерная и даст ей их, взяв всю грязную работу на себя!
 import React from "react";
-import {addPostActionCreator, updateNewPostTextActionCreator} from "../../../redux/profile-reducer";
+import {addPostActionCreator} from "../../../redux/profile-reducer";
 import MyPosts from "./MyPosts";
 import {connect} from "react-redux";
 
 const mapStateToProps = (state) => {
   return {
-    postsData: state.profilePage.posts,
-    newPostText: state.profilePage.newPostText
+    postsData: state.profilePage.posts
   }
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    updateNewPostText: (text) => {
-      const action = updateNewPostTextActionCreator(text);
-      dispatch(action);
-    },
-    addPost: () => {
-      const action = addPostActionCreator();
+    addPost: (newPostText) => {
+      const action = addPostActionCreator(newPostText);
       dispatch(action);
     }
   };
