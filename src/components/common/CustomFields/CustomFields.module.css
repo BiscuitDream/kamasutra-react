@@ -1,0 +1,12 @@
+.field {
+  display: flex;
+  align-items: center;
+}
+
+.error {
+  border: 2px solid darkred;
+}
+
+.errorMessage {
+  color: darkred;
+}
