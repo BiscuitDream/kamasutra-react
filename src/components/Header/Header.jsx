@@ -7,7 +7,7 @@ const Header = (props) => {
       <img src="https://www.vhv.rs/dpng/d/573-5732595_logo-maker-shop-make-your-logo-in-5.png" width="50px" />
       <div className={styles.loginBlock}>
         {props.isAuth
-          ? <p>{props.login}</p>
+          ? <p>{props.login} - <button type="button" onClick={props.logout}>Log out</button> </p>
           : <Link className={styles.loginLink} to={"/login"}>Login</Link>}
       </div>
     </header>

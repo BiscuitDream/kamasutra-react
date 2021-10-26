@@ -14,8 +14,7 @@ const authReducer = (state = initialState, action) => {
     case SET_AUTH_USER_DATA:
       return {
         ...state,
-        ...action.data,
-        isAuth: true
+        ...action.payload
       };
 
     default:
@@ -23,18 +22,36 @@ const authReducer = (state = initialState, action) => {
   }
 };
 
-const setAuthUserData = (userId, login, email) => ({type: SET_AUTH_USER_DATA, data: {userId, login, email}});
+const setAuthUserData = (userId, login, email, isAuth) => ({type: SET_AUTH_USER_DATA, payload: {userId, login, email, isAuth}});
 
-export const checkAuth = () => { // TODO getAuthUserData
+export const getAuthUserData = () => { // TODO getAuthUserData
   return (dispatch) => {
-    api.checkAuth()
+    api.me()
       .then(data => {
         if (data.resultCode === 0) {
           const {id, login, email} = data.data;
-          dispatch(setAuthUserData(id, login, email)); // TODO можно еще профиль залогиненного юзера загрузить и отобразить что-нибудь напр аватар
+          dispatch(setAuthUserData(id, login, email, true)); // TODO можно еще профиль залогиненного юзера загрузить и отобразить что-нибудь напр аватар
         }
       });
   }
+};
+
+export const login = (email, password, rememberMe) => (dispatch) => {
+  api.login(email, password, rememberMe)
+    .then(data => {
+      if (data.resultCode === 0) {
+        dispatch(getAuthUserData());
+      }
+    });
+};
+
+export const logout = () => (dispatch) => {
+  api.logout()
+    .then(data => {
+      if (data.resultCode === 0) {
+        dispatch(setAuthUserData(null, null, null, false));
+      }
+    });
 };
 
 export default authReducer;
