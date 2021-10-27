@@ -6,8 +6,8 @@ export const CustomField = (FormField) => ({input, meta: {error, touched, submit
     <div>
       <p className={styles.field}>
         <FormField className={hasError ? styles.error : ''} {...input} {...props} />
-        {submitFailed && (error &&
-          <span className={styles.errorMessage}>&nbsp;{error}</span>)}
+        {hasError &&
+          <span className={styles.errorMessage}>&nbsp;{error}</span>}
       </p>
     </div>
   );

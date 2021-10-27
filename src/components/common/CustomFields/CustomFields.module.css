@@ -10,3 +10,10 @@
 .errorMessage {
   color: darkred;
 }
+
+.commonError {
+  padding: 5px 10px;
+  display: inline-block;
+  color: darkred;
+  border: 2px solid darkred;
+}
