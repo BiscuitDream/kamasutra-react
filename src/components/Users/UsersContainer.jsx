@@ -2,22 +2,29 @@ import React from 'react';
 import {connect} from "react-redux";
 import {
   follow,
-  getUsers,
+  requestUsers,
   setPortionNumber,
   unfollow
 } from "../../redux/users-reducer";
 import Users from "./Users";
 import Preloader from "../common/Preloader/Preloader";
+import {
+  getCurrentPage,
+  getFollowingInProgress,
+  getIsFetching,
+  getPageSize, getPortionNumber,
+  getTotalUsersCount, getUsers
+} from "../../redux/users-selectors";
 
 class UsersContainer extends React.Component { // TODO переименовать. тут апи теперь не используется, можно просто экспорт по дефолту, как в другом файле
   componentDidMount() {
     if (this.props.users.length === 0) {
-      this.props.getUsers(this.props.currentPage, this.props.pageSize);
+      this.props.requestUsers(this.props.currentPage, this.props.pageSize);
     }
   }
 
   onPageChanged = (pageNumber) => {
-    this.props.getUsers(pageNumber, this.props.pageSize);
+    this.props.requestUsers(pageNumber, this.props.pageSize);
   }
 
   render() {
@@ -40,7 +47,7 @@ class UsersContainer extends React.Component { // TODO переименоват�
   }
 }
 
-const mapStateToProps = (state) => { // TODO возврат можно убрать. Убрать ненужные
+/*const mapStateToProps = (state) => { // TODO возврат можно убрать. Убрать ненужные
   return {
     users: state.usersPage.users,
     pageSize: state.usersPage.pageSize,
@@ -50,11 +57,23 @@ const mapStateToProps = (state) => { // TODO возврат можно убра�
     followingInProgress: state.usersPage.followingInProgress,
     portionNumber: state.usersPage.portionNumber
   };
+};*/
+
+const mapStateToProps = (state) => {
+  return {
+    users: getUsers(state),
+    pageSize: getPageSize(state),
+    totalUsersCount: getTotalUsersCount(state),
+    currentPage: getCurrentPage(state),
+    isFetching: getIsFetching(state),
+    followingInProgress: getFollowingInProgress(state),
+    portionNumber: getPortionNumber(state)
+  };
 };
 
 export default connect(mapStateToProps, {
   follow,
   unfollow,
   setPortionNumber,
-  getUsers
+  requestUsers
 })(UsersContainer);
