@@ -13,7 +13,7 @@ import {
   getFollowingInProgress,
   getIsFetching,
   getPageSize, getPortionNumber,
-  getTotalUsersCount, getUsers
+  getTotalUsersCount, getUsers, getUsersSelector
 } from "../../redux/users-selectors";
 
 class UsersContainer extends React.Component { // TODO переименовать. тут апи теперь не используется, можно просто экспорт по дефолту, как в другом файле
@@ -28,6 +28,7 @@ class UsersContainer extends React.Component { // TODO переименоват�
   }
 
   render() {
+    console.log('RENDER USERS')
     return (
       <>
         {this.props.isFetching ? <Preloader /> : null}
@@ -60,8 +61,10 @@ class UsersContainer extends React.Component { // TODO переименоват�
 };*/
 
 const mapStateToProps = (state) => {
+  console.log('mapToState') // TODO для понимания reselect, удалить потом
   return {
-    users: getUsers(state),
+    // users: getUsers(state),
+    users: getUsersSelector(state), // TODO для понимания reselect, удалить потом
     pageSize: getPageSize(state),
     totalUsersCount: getTotalUsersCount(state),
     currentPage: getCurrentPage(state),

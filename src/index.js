@@ -1,4 +1,4 @@
-// React(UI), Redux(BLL), Redux Thunk, CSS Modules, axios, react-router-dom(Switch, Route, NavLink, Link, withRouter, Redirect), Redux Form
+// React(UI), Redux(BLL), Redux Thunk, CSS Modules, axios, react-router-dom(Switch, Route, NavLink, Link, withRouter, Redirect), Redux Form, selectors, reselect
 import reportWebVitals from './reportWebVitals';
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -7,6 +7,10 @@ import App from './App';
 import {BrowserRouter} from "react-router-dom";
 import store from './redux/redux-store';
 import {Provider} from "react-redux";
+
+// setInterval(() => {
+//   store.dispatch({type: 'FAKE'}); // TODO для понимания reselect, удалить потом
+// }, 1000);
 
 ReactDOM.render(
   <React.StrictMode>

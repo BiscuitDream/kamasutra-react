@@ -21,6 +21,10 @@ const initialState = {
 
 const usersReducer = (state = initialState, action) => {
   switch (action.type) {
+    case 'FAKE': {        // TODO для понимания reselect, удалить потом
+      return {...state};
+    }
+
     case FOLLOW: // TODO нужен переключатель, тогл, а не этот бред
       return {
         ...state,

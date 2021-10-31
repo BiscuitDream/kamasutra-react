@@ -1,6 +1,14 @@
+import {createSelector} from "reselect";
+
 export const getUsers = (state) => {
+  console.log('users selector') // TODO для понимания reselect, удалить потом
   return state.usersPage.users;
 };
+
+export const getUsersSelector = createSelector(getUsers, (users) => {
+  console.log('getUsersSelector with reselect') // TODO для понимания reselect, удалить потом
+   return users.filter(u => true) // TODO для понимания reselect, удалить потом. надуманный пример
+});
 
 export const getPageSize = (state) => {
   return state.usersPage.pageSize;
