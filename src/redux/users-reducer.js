@@ -100,41 +100,36 @@ const toggleFollowingProgress = (isFetching, userId) => ({type: TOGGLE_FOLLOWING
 export const setPortionNumber = (portionNumber) => ({type: SET_PORTION_NUMBER, portionNumber});
 
 export const requestUsers = (page, pageSize) => {   // thunk creator принимает в параметры нужные данные и возращает thunk, которая через замыкание может достучаться к этим данным
-  return (dispatch) => {
+  return async (dispatch) => {
     dispatch(toggleIsFetching(true));
     dispatch(setCurrentPage(page));
-    api.getUsers(page, pageSize)
-      .then(data => {
-        dispatch(setUsers(data.items));
-        dispatch(setTotalUsersCount(data.totalCount));
-        dispatch(toggleIsFetching(false));
-      });
+
+    const data = await api.getUsers(page, pageSize);
+    dispatch(setUsers(data.items));
+    dispatch(setTotalUsersCount(data.totalCount));
+    dispatch(toggleIsFetching(false));
   };
 };
 
 export const follow = (userId) => {
-  return (dispatch) => {
+  return async (dispatch) => {
     dispatch(toggleFollowingProgress(true, userId)); // TODO мб поменять порядок параметров
-    api.followUser(userId)
-      .then(data => {
-        if (data.resultCode === 0) {
-          dispatch(followSuccess(userId));
-        }
-        dispatch(toggleFollowingProgress(false, userId));
-      });
+    const data = await api.followUser(userId);
+    if (data.resultCode === 0) {
+      dispatch(followSuccess(userId));
+    }
+    dispatch(toggleFollowingProgress(false, userId));
   };
 };
 
 export const unfollow = (userId) => {
-  return (dispatch) => {
+  return async (dispatch) => {
     dispatch(toggleFollowingProgress(true, userId));
-    api.unFollowUser(userId)
-      .then(data => {
-        if (data.resultCode === 0) {
-          dispatch(unfollowSuccess(userId));
-        }
-        dispatch(toggleFollowingProgress(false, userId));
-      });
+    const data = await api.unFollowUser(userId);
+    if (data.resultCode === 0) {
+      dispatch(unfollowSuccess(userId));
+    }
+    dispatch(toggleFollowingProgress(false, userId));
   };
 };
 

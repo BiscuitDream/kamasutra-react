@@ -51,30 +51,25 @@ const profileReducer = (state = initialState, action) => {
 };
 
 export const addPostActionCreator = (newPostText) => ({type: ADD_POST, newPostText});
-const setUserProfile = (profile) => ({type: SET_USER_PROFILE, userProfile: profile}); // TODO может просто userProfile
+const setUserProfile = (profile) => ({type: SET_USER_PROFILE, userProfile: profile});
 const setStatus = (status) => ({type: SET_STATUS, status});
 export const deletePost = (postId) => ({type: DELETE_POST, postId});
 
-export const getUserProfile = (userId) => {
-  return (dispatch) => {
-    api.getProfile(userId).then(data => {
-      dispatch(setUserProfile(data));
-    });
-  };
+export const getUserProfile = (userId) => async (dispatch) => {
+  const data = await api.getProfile(userId);
+  dispatch(setUserProfile(data));
 };
 
-export const getStatus = (userId) => (dispatch) => {
-  api.getStatus(userId).then(data => {
-    dispatch(setStatus(data));
-  });
+export const getStatus = (userId) => async (dispatch) => {
+  const data = await api.getStatus(userId);
+  dispatch(setStatus(data));
 };
 
-export const updateStatus = (status) => (dispatch) => {
-  api.updateStatus(status).then(data => {
-    if (data.resultCode === 0) {
-      dispatch(setStatus(status));
-    }
-  });
+export const updateStatus = (status) => async (dispatch) => {
+  const data = await api.updateStatus(status);
+  if (data.resultCode === 0) {
+    dispatch(setStatus(status));
+  }
 };
 
 export default profileReducer;
