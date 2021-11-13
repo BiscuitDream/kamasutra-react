@@ -18,13 +18,15 @@ import {
 
 class UsersContainer extends React.Component { // TODO переименовать. тут апи теперь не используется, можно просто экспорт по дефолту, как в другом файле
   componentDidMount() {
+    const {currentPage, pageSize} = this.props;
     if (this.props.users.length === 0) {
-      this.props.requestUsers(this.props.currentPage, this.props.pageSize);
+      this.props.requestUsers(currentPage, pageSize);
     }
   }
 
   onPageChanged = (pageNumber) => {
-    this.props.requestUsers(pageNumber, this.props.pageSize);
+    const {pageSize} = this.props;
+    this.props.requestUsers(pageNumber, pageSize);
   }
 
   render() {

@@ -4,19 +4,16 @@ import ProfileStatus from './ProfileStatus/ProfileStatus';
 import ProfileStatusWithHooks from "./ProfileStatus/ProfileStatusWithHooks";
 
 
-const ProfileInfo = (props) => {
-  if (!props.userProfile) {
+const ProfileInfo = ({userProfile, status, updateStatus}) => {
+  if (!userProfile) {
     return <Preloader />
   }
 // TODO добавить больше инфы
   return (
     <div>
-      {/*<div>
-        <img src="https://www.markgray.com.au/images/gallery/large/desert-light.jpg" />
-      </div>*/}
       <div className={styles.descriptionBlock}>
-        <p><img src={props.userProfile.photos.large} /></p>
-        <ProfileStatusWithHooks status={props.status} updateStatus={props.updateStatus} />
+        <p><img src={userProfile.photos.large} /></p>
+        <ProfileStatusWithHooks status={status} updateStatus={updateStatus} />
       </div>
     </div>
   );
