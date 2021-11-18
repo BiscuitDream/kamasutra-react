@@ -6,12 +6,10 @@ import User from "./User/User";
 const Users = (props) => { // TODO пользователей заменить на список и убрать бредовую разметку. сейчас блочные элементы в строковые вложены
   return (
     <div>
-      <Pagination totalUsersCount={props.totalUsersCount}
+      <Pagination totalItemsCount={props.totalUsersCount}
                   pageSize={props.pageSize}
-                  portionNumber={props.portionNumber}
                   currentPage={props.currentPage}
-                  onPageChanged={props.onPageChanged}
-                  setPortionNumber={props.setPortionNumber} />
+                  onPageChanged={props.onPageChanged} />
 
       <ul className={styles.usersList}>
         {props.users.map((user) =>  (

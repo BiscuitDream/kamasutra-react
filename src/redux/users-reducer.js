@@ -8,7 +8,6 @@ const SET_CURRENT_PAGE = 'SET-CURRENT-PAGE';
 const SET_TOTAL_USERS_COUNT = 'SET-TOTAL-USERS-COUNT';
 const TOGGLE_IS_FETCHING = 'TOGGLE-IS-FETCHING';
 const TOGGLE_FOLLOWING_PROGRESS = 'TOGGLE-FOLLOWING-PROGRESS';
-const SET_PORTION_NUMBER = 'SET-PORTION-NUMBER';
 
 const initialState = {
   users: [],
@@ -16,8 +15,7 @@ const initialState = {
   totalUsersCount: 0,
   currentPage: 1,
   isFetching: false,
-  followingInProgress: [],
-  portionNumber: 1
+  followingInProgress: []
 };
 
 const usersReducer = (state = initialState, action) => {
@@ -70,12 +68,6 @@ const usersReducer = (state = initialState, action) => {
           : state.followingInProgress.filter(id => id !== action.userId)
       };
 
-    case SET_PORTION_NUMBER:
-      return {
-        ...state,
-        portionNumber: action.portionNumber
-      };
-
     default:
       return state;
   }
@@ -88,7 +80,6 @@ const setCurrentPage = (currentPage) => ({type: SET_CURRENT_PAGE, currentPage});
 const setTotalUsersCount = (totalUsersCount) => ({type: SET_TOTAL_USERS_COUNT, totalUsersCount});
 const toggleIsFetching = (isFetching) => ({type: TOGGLE_IS_FETCHING, isFetching});
 const toggleFollowingProgress = (isFetching, userId) => ({type: TOGGLE_FOLLOWING_PROGRESS, isFetching, userId});
-export const setPortionNumber = (portionNumber) => ({type: SET_PORTION_NUMBER, portionNumber});
 
 export const requestUsers = (page, pageSize) => {   // thunk creator принимает в параметры нужные данные и возращает thunk, которая через замыкание может достучаться к этим данным
   return async (dispatch) => {
