@@ -1,11 +1,13 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import styles from './Pagination.module.css';
 
 const Pagination = ({totalItemsCount, pageSize, currentPage, onPageChanged, portionSize = 10}) => {
   const pagesCount = Math.ceil(totalItemsCount / pageSize);
 
-  const portionsCount = Math.ceil(pagesCount / portionSize);
   const [portionNumber, setPortionNumber] = useState(1);
+  useEffect(() => setPortionNumber(Math.ceil(currentPage / portionSize)), [currentPage]);
+
+  const portionsCount = Math.ceil(pagesCount / portionSize);
   let leftPortionPageNumber = (portionNumber - 1) * portionSize + 1;
   let rightPortionPageNumber = portionNumber * portionSize;
 
