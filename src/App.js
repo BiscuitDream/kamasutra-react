@@ -1,5 +1,5 @@
 import React from "react";
-import {Switch, Route, Redirect, BrowserRouter} from "react-router-dom";
+import {Switch, Route, Redirect, BrowserRouter, HashRouter} from "react-router-dom";
 import './App.css';
 import Navbar from "./components/Navbar/Navbar";
 // import DialogsContainer from "./components/Dialogs/DialogsContainer";
@@ -63,11 +63,11 @@ const AppContainer = connect(mapStateToProps, {initializeApp})(App);
 
 const SamuraiJsApp = () => {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <Provider store={store}>
         <AppContainer />
       </Provider>
-    </BrowserRouter>
+    </HashRouter>
   );
 };
 
