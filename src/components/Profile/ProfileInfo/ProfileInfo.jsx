@@ -2,6 +2,7 @@ import styles from './ProfileInfo.module.css';
 import Preloader from '../../common/Preloader/Preloader';
 import ProfileStatus from './ProfileStatus/ProfileStatus';
 import ProfileStatusWithHooks from "./ProfileStatus/ProfileStatusWithHooks";
+import userPhoto from "../../../assets/images/user.png";
 
 
 const ProfileInfo = ({userProfile, status, updateStatus}) => {
@@ -12,7 +13,7 @@ const ProfileInfo = ({userProfile, status, updateStatus}) => {
   return (
     <div>
       <div className={styles.descriptionBlock}>
-        <p><img src={userProfile.photos.large} /></p>
+        <p><img className={styles.userPhoto} src={userProfile.photos.large || userPhoto} /></p>
         <ProfileStatusWithHooks status={status} updateStatus={updateStatus} />
       </div>
     </div>
