@@ -5,3 +5,13 @@
 .userPhoto {
   max-width: 200px;
 }
+
+.contacts {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.contact {
+  padding-left: 10px;
+}

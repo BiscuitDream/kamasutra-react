@@ -3,9 +3,75 @@ import Preloader from '../../common/Preloader/Preloader';
 import ProfileStatus from './ProfileStatus/ProfileStatus';
 import ProfileStatusWithHooks from "./ProfileStatus/ProfileStatusWithHooks";
 import userPhoto from "../../../assets/images/user.png";
+import {useState} from "react";
 
+const Contact = ({contactTitle, contactValue}) => {
+  return (
+    <div>
+      <b>{contactTitle}</b>: {contactValue}
+    </div>
+  );
+};
+
+const ProfileData = ({userProfile, isOwner, goToEditMode}) => {
+  return (
+    <div>
+      {isOwner ? <div><button onClick={goToEditMode}>edit</button></div> : null}
+      <div>
+        <b>Full name</b>: {userProfile.fullName}
+      </div>
+      <div>
+        <b>Looking for a job</b>: {userProfile.lookingForAJob ? 'yes' : 'no'}
+      </div>
+      {userProfile.lookingForAJob &&
+      <div>
+        <b>My professional skills</b>: {userProfile.lookingForAJobDescription}
+      </div>}
+      <div>
+        <b>About me</b>: {userProfile.aboutMe}
+      </div>
+      <div>
+        <b>Contacts</b>:
+        <ul className={styles.contacts}>
+          {Object.entries(userProfile.contacts).map(([key, value]) => (
+            <li className={styles.contact}><Contact contactTitle={key} contactValue={value} key={key} /></li>))}
+        </ul>
+      </div>
+    </div>
+  );
+};
+
+const ProfileDataForm = ({userProfile}) => {
+  return (
+    <div>
+      FORMA
+      <div>
+        <b>Full name</b>: {userProfile.fullName}
+      </div>
+      <div>
+        <b>Looking for a job</b>: {userProfile.lookingForAJob ? 'yes' : 'no'}
+      </div>
+      {userProfile.lookingForAJob &&
+      <div>
+        <b>My professional skills</b>: {userProfile.lookingForAJobDescription}
+      </div>}
+      <div>
+        <b>About me</b>: {userProfile.aboutMe}
+      </div>
+      <div>
+        <b>Contacts</b>:
+        <ul className={styles.contacts}>
+          {Object.entries(userProfile.contacts).map(([key, value]) => (
+            <li className={styles.contact}><Contact contactTitle={key} contactValue={value} key={key} /></li>))}
+        </ul>
+      </div>
+    </div>
+  );
+};
 
 const ProfileInfo = ({userProfile, status, updateStatus, isOwner, uploadPhoto}) => {
+  const [editMode, setEditMode] = useState(false);
+
   if (!userProfile) {
     return <Preloader />
   }
@@ -26,6 +92,9 @@ const ProfileInfo = ({userProfile, status, updateStatus, isOwner, uploadPhoto}) 
                               accept=".jpg, .jpeg, .png"
                               onChange={onPhotoSelected} />}
         </p>
+        {editMode
+          ? <ProfileDataForm userProfile={userProfile} />
+          : <ProfileData userProfile={userProfile} isOwner={isOwner} goToEditMode={() => setEditMode(true)} />}
         <ProfileStatusWithHooks status={status} updateStatus={updateStatus} />
       </div>
     </div>
