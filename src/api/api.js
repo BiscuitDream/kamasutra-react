@@ -63,5 +63,10 @@ export const api = {
     return axiosInstance
       .put('/profile/photo', formData, {headers: {'Content-Type': 'multipart/form-data'}})
       .then(response => response.data);
+  },
+  saveProfile(profile) {
+    return axiosInstance
+      .put('/profile', profile)
+      .then(response => response.data);
   }
 };

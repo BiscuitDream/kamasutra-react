@@ -4,6 +4,7 @@ import ProfileStatus from './ProfileStatus/ProfileStatus';
 import ProfileStatusWithHooks from "./ProfileStatus/ProfileStatusWithHooks";
 import userPhoto from "../../../assets/images/user.png";
 import {useState} from "react";
+import ProfileDataForm from "./ProfileDataForm/ProfileDataForm";
 
 const Contact = ({contactTitle, contactValue}) => {
   return (
@@ -41,35 +42,7 @@ const ProfileData = ({userProfile, isOwner, goToEditMode}) => {
   );
 };
 
-const ProfileDataForm = ({userProfile}) => {
-  return (
-    <div>
-      FORMA
-      <div>
-        <b>Full name</b>: {userProfile.fullName}
-      </div>
-      <div>
-        <b>Looking for a job</b>: {userProfile.lookingForAJob ? 'yes' : 'no'}
-      </div>
-      {userProfile.lookingForAJob &&
-      <div>
-        <b>My professional skills</b>: {userProfile.lookingForAJobDescription}
-      </div>}
-      <div>
-        <b>About me</b>: {userProfile.aboutMe}
-      </div>
-      <div>
-        <b>Contacts</b>:
-        <ul className={styles.contacts}>
-          {Object.entries(userProfile.contacts).map(([key, value]) => (
-            <li className={styles.contact}><Contact contactTitle={key} contactValue={value} key={key} /></li>))}
-        </ul>
-      </div>
-    </div>
-  );
-};
-
-const ProfileInfo = ({userProfile, status, updateStatus, isOwner, uploadPhoto}) => {
+const ProfileInfo = ({userProfile, status, updateStatus, isOwner, uploadPhoto, saveProfile}) => {
   const [editMode, setEditMode] = useState(false);
 
   if (!userProfile) {
@@ -82,6 +55,11 @@ const ProfileInfo = ({userProfile, status, updateStatus, isOwner, uploadPhoto}) 
     }
   }
 
+  const onSubmit = (formValues) => {
+    console.log(formValues);
+    saveProfile(formValues);
+  };
+
 // TODO добавить больше инфы
   return (
     <div>
@@ -93,7 +71,7 @@ const ProfileInfo = ({userProfile, status, updateStatus, isOwner, uploadPhoto}) 
                               onChange={onPhotoSelected} />}
         </p>
         {editMode
-          ? <ProfileDataForm userProfile={userProfile} />
+          ? <ProfileDataForm userProfile={userProfile} onSubmit={onSubmit} />
           : <ProfileData userProfile={userProfile} isOwner={isOwner} goToEditMode={() => setEditMode(true)} />}
         <ProfileStatusWithHooks status={status} updateStatus={updateStatus} />
       </div>
