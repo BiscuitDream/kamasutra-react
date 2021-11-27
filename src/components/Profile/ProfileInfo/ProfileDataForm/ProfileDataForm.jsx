@@ -1,10 +1,12 @@
 import {Input, TextArea} from "../../../common/CustomFields/CustomFields";
 import {Field, reduxForm} from "redux-form";
+import styles from '../../../common/CustomFields/CustomFields.module.css';
 
-const ProfileDataForm = ({handleSubmit}) => {
+const ProfileDataForm = ({handleSubmit, profile, error}) => { // TODO need to refactor form
   return (
     <form onSubmit={handleSubmit}>
       <div><button type="submit">save</button></div>
+      {error && <p className={styles.commonError}>{error}</p>}
       <div>
         <b>Full name</b>: <Field name="fullName"
                                  component={Input}
@@ -29,8 +31,16 @@ const ProfileDataForm = ({handleSubmit}) => {
       <div>
         <b>Contacts</b>:
         <ul>
-          {/*{Object.entries(userProfile.contacts).map(([key, value]) => (*/}
-          {/*  <li><Contact contactTitle={key} contactValue={value} key={key} /></li>))}*/}
+          {Object.entries(profile.contacts).map(([key, value]) => {
+            return (
+              <li key={key}>
+                <label>
+                  <b>{key}</b>:
+                  <Field name={`contacts.${key}`} component={Input} value={value} placeholder={key} />
+                </label>
+              </li>
+            );
+          })}
         </ul>
       </div>
     </form>

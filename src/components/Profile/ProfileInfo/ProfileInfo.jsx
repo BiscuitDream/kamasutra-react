@@ -14,7 +14,7 @@ const Contact = ({contactTitle, contactValue}) => {
   );
 };
 
-const ProfileData = ({userProfile, isOwner, goToEditMode}) => {
+const ProfileData = ({userProfile, isOwner, goToEditMode}) => { // TODO need to refactor this jsx
   return (
     <div>
       {isOwner ? <div><button onClick={goToEditMode}>edit</button></div> : null}
@@ -35,7 +35,7 @@ const ProfileData = ({userProfile, isOwner, goToEditMode}) => {
         <b>Contacts</b>:
         <ul className={styles.contacts}>
           {Object.entries(userProfile.contacts).map(([key, value]) => (
-            <li className={styles.contact}><Contact contactTitle={key} contactValue={value} key={key} /></li>))}
+              <li key={key} className={styles.contact}><Contact contactTitle={key} contactValue={value}/></li>))}
         </ul>
       </div>
     </div>
@@ -56,8 +56,7 @@ const ProfileInfo = ({userProfile, status, updateStatus, isOwner, uploadPhoto, s
   }
 
   const onSubmit = (formValues) => {
-    saveProfile(formValues);
-    setEditMode(false);
+    saveProfile(formValues).then(() => setEditMode(false));
   };
 
 // TODO добавить больше инфы
@@ -71,7 +70,7 @@ const ProfileInfo = ({userProfile, status, updateStatus, isOwner, uploadPhoto, s
                               onChange={onPhotoSelected} />}
         </p>
         {editMode
-          ? <ProfileDataForm initialValues={userProfile} onSubmit={onSubmit} />
+          ? <ProfileDataForm initialValues={userProfile} profile={userProfile} onSubmit={onSubmit} />
           : <ProfileData userProfile={userProfile} isOwner={isOwner} goToEditMode={() => setEditMode(true)} />}
         <ProfileStatusWithHooks status={status} updateStatus={updateStatus} />
       </div>
