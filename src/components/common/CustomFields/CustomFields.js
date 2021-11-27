@@ -3,12 +3,10 @@ import styles from './CustomFields.module.css';
 export const CustomField = (FormField) => ({input, meta: {error, touched, submitting, submitFailed, visited}, ...props}) => {
   const hasError = touched && error; // TODO проработать случаи появления ошибки
   return (
-    <div>
-      <p className={styles.field}>
+    <div className={styles.field}>
         <FormField className={hasError ? styles.error : ''} {...input} {...props} />
         {hasError &&
           <span className={styles.errorMessage}>&nbsp;{error}</span>}
-      </p>
     </div>
   );
 };

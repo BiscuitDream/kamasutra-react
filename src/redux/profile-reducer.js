@@ -90,10 +90,11 @@ export const uploadPhoto = (file) => async (dispatch) => {
   }
 };
 
-export const saveProfile = (profile) => async (dispatch) => {
+export const saveProfile = (profile) => async (dispatch, getState) => {
+  const userId = getState().auth.userId;
   const data = await api.saveProfile(profile);
   if (data.resultCode === 0) {
-    // dispatch(saveProfileSuccess(data.data));
+    dispatch(getUserProfile(userId));
   }
 };
 

@@ -56,8 +56,8 @@ const ProfileInfo = ({userProfile, status, updateStatus, isOwner, uploadPhoto, s
   }
 
   const onSubmit = (formValues) => {
-    console.log(formValues);
     saveProfile(formValues);
+    setEditMode(false);
   };
 
 // TODO добавить больше инфы
@@ -71,7 +71,7 @@ const ProfileInfo = ({userProfile, status, updateStatus, isOwner, uploadPhoto, s
                               onChange={onPhotoSelected} />}
         </p>
         {editMode
-          ? <ProfileDataForm userProfile={userProfile} onSubmit={onSubmit} />
+          ? <ProfileDataForm initialValues={userProfile} onSubmit={onSubmit} />
           : <ProfileData userProfile={userProfile} isOwner={isOwner} goToEditMode={() => setEditMode(true)} />}
         <ProfileStatusWithHooks status={status} updateStatus={updateStatus} />
       </div>

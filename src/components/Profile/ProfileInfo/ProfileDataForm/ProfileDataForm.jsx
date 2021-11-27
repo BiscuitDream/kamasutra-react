@@ -1,7 +1,7 @@
 import {Input, TextArea} from "../../../common/CustomFields/CustomFields";
 import {Field, reduxForm} from "redux-form";
 
-const ProfileDataForm = ({userProfile, handleSubmit}) => {
+const ProfileDataForm = ({handleSubmit}) => {
   return (
     <form onSubmit={handleSubmit}>
       <div><button type="submit">save</button></div>
@@ -9,8 +9,7 @@ const ProfileDataForm = ({userProfile, handleSubmit}) => {
         <b>Full name</b>: <Field name="fullName"
                                  component={Input}
                                  type="text"
-                                 placeholder="Full name"
-                                 validate={[]} />
+                                 placeholder="Full name" />
       </div>
       <div>
         <b>looking for a job</b>: <Field name="lookingForAJob"
