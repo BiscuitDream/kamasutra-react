@@ -20,8 +20,20 @@ const UsersContainer = React.lazy(() => import('./components/Users/UsersContaine
 const Login = React.lazy(() => import('./components/Login/Login'));
 
 class App extends React.Component {
+  handleAllUnhandledRejection = (promiseRejectionEvent) => {
+    alert('Some error occurred');
+    // объект события имеет два специальных свойства:
+    console.error(promiseRejectionEvent.promise); // [object Promise] - промис, который сгенерировал ошибку
+    console.error(promiseRejectionEvent.reason); // Error: Ошибка! - объект ошибки, которая не была обработана
+}
+
   componentDidMount() {
     this.props.initializeApp();
+    window.addEventListener('unhandledrejection', this.handleAllUnhandledRejection);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('unhandledrejection', this.handleAllUnhandledRejection);
   }
 
   render() {
