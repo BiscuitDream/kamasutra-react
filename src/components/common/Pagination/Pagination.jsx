@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import styles from './Pagination.module.css';
+import cn from 'classnames';
 
 const Pagination = ({totalItemsCount, pageSize, currentPage, onPageChanged, portionSize = 10}) => {
   const pagesCount = Math.ceil(totalItemsCount / pageSize);
@@ -19,7 +20,9 @@ const Pagination = ({totalItemsCount, pageSize, currentPage, onPageChanged, port
   const pages = pageNumbers
     .filter((num) => (leftPortionPageNumber <= num && num <= rightPortionPageNumber))
     .map((num) => {
-      return <li className={currentPage === num ? styles.selectedPage : undefined}
+      // return <li className={currentPage === num ? styles.selectedPage : undefined}
+      //            onClick={() => onPageChanged(num)}>{num}</li>
+      return <li className={cn({[styles.selectedPage]: currentPage === num})}
                  onClick={() => onPageChanged(num)}>{num}</li>
     });
 
