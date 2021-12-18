@@ -2,7 +2,18 @@ import React, {useEffect, useState} from 'react';
 import styles from './Pagination.module.css';
 import cn from 'classnames';
 
-const Pagination = ({totalItemsCount, pageSize, currentPage, onPageChanged, portionSize = 10}) => {
+type PropsType = {
+  totalItemsCount: number,
+  pageSize: number,
+  currentPage: number,
+  onPageChanged: (pageNumber: number) => void,
+  portionSize?: number
+};
+
+const Pagination: React.FC<PropsType> = ({totalItemsCount, pageSize,
+                                      currentPage, onPageChanged,
+                                      portionSize = 10}) => {
+
   const pagesCount = Math.ceil(totalItemsCount / pageSize);
 
   const [portionNumber, setPortionNumber] = useState(1);
@@ -12,7 +23,7 @@ const Pagination = ({totalItemsCount, pageSize, currentPage, onPageChanged, port
   let leftPortionPageNumber = (portionNumber - 1) * portionSize + 1;
   let rightPortionPageNumber = portionNumber * portionSize;
 
-  const pageNumbers = [];
+  const pageNumbers: Array<number> = [];
   for (let i = 1; i <= pagesCount; i++) {
     pageNumbers.push(i);
   }

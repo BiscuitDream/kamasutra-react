@@ -1,5 +1,5 @@
 import React from 'react';
-import {connect} from "react-redux";
+import {connect, ConnectedProps} from "react-redux";
 import {
   follow,
   requestUsers,
@@ -14,8 +14,31 @@ import {
   getPageSize,
   getTotalUsersCount, getUsers, getUsersSelector
 } from "../../redux/users-selectors";
+import {UserType} from "../../types/types";
+import {AppStateType} from "../../redux/redux-store";
 
-class UsersContainer extends React.Component { // TODO переименовать. тут апи теперь не используется, можно просто экспорт по дефолту, как в другом файле
+type MapStateToPropsType = {
+  currentPage: number,
+  pageSize: number,
+  users: Array<UserType>,
+  isFetching: boolean,
+  totalUsersCount: number,
+  followingInProgress: Array<number>,
+};
+
+type MapDispatchPropsType = {
+  requestUsers: (PageNumber: number, pageSize: number) => void,
+  unfollow: (userId: number) => void,
+  follow: (userId: number) => void
+};
+
+type OwnPropsType = {
+  pageTitle: string
+};
+
+type PropsType = MapStateToPropsType & MapDispatchPropsType & OwnPropsType;
+
+class UsersContainer extends React.Component<PropsType> {
   componentDidMount() {
     const {currentPage, pageSize} = this.props;
     if (this.props.users.length === 0) {
@@ -23,7 +46,7 @@ class UsersContainer extends React.Component { // TODO переименоват�
     }
   }
 
-  onPageChanged = (pageNumber) => {
+  onPageChanged = (pageNumber: number) => {
     const {pageSize} = this.props;
     this.props.requestUsers(pageNumber, pageSize);
   }
@@ -32,6 +55,7 @@ class UsersContainer extends React.Component { // TODO переименоват�
     console.log('RENDER USERS')
     return (
       <>
+        <h2>{this.props.pageTitle}</h2>
         {this.props.isFetching ? <Preloader /> : null}
         <Users totalUsersCount={this.props.totalUsersCount}
                pageSize={this.props.pageSize}
@@ -59,7 +83,7 @@ class UsersContainer extends React.Component { // TODO переименоват�
   };
 };*/
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
   console.log('mapToState') // TODO для понимания reselect, удалить потом
   return {
     // users: getUsers(state),
@@ -72,7 +96,18 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, {
+/*const connector = connect(mapStateToProps, {
+  follow,
+  unfollow,
+  requestUsers
+});
+type PropsFromRedux = ConnectedProps<typeof connector>;
+type PropsType = PropsFromRedux & OwnPropsType;
+export default connector(UsersContainer);*/
+
+
+//TStateProps = {}, TDispatchProps = {}, TOwnProps = {}, State = DefaultState
+export default connect<MapStateToPropsType, MapDispatchPropsType, OwnPropsType, AppStateType>(mapStateToProps, {
   follow,
   unfollow,
   requestUsers

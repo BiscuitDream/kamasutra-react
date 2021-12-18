@@ -2,8 +2,20 @@ import React from 'react';
 import styles from './Users.module.css';
 import Pagination from "../common/Pagination/Pagination";
 import User from "./User/User";
+import {UserType} from "../../types/types";
 
-const Users = (props) => { // TODO пользователей заменить на список и убрать бредовую разметку. сейчас блочные элементы в строковые вложены
+type PropsType = {
+    totalUsersCount: number,
+    pageSize: number,
+    currentPage: number,
+    onPageChanged: (pageNumber: number) => void,
+    users: Array<UserType>,
+    followingInProgress: Array<number>,
+    unfollow: (userId: number) => void,
+    follow: (userId: number) => void
+};
+
+const Users: React.FC<PropsType> = (props) => {
   return (
     <div>
       <Pagination totalItemsCount={props.totalUsersCount}
