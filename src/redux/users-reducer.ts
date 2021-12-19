@@ -1,6 +1,9 @@
 import {api} from "../api/api";
 import {updateObjectInArray} from "../utils/object-helpers";
 import {UserType} from "../types/types";
+import {AppStateType} from "./redux-store";
+import {Dispatch} from "redux";
+import {ThunkAction} from "redux-thunk";
 
 const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
@@ -21,11 +24,11 @@ const initialState = {
 
 type InitialStateType = typeof initialState;
 
-const usersReducer = (state: InitialStateType = initialState, action: any): InitialStateType => {
+const usersReducer = (state: InitialStateType = initialState, action: ActionsTypes): InitialStateType => {
   switch (action.type) {
-    case 'FAKE': {        // TODO для понимания reselect, удалить потом
-      return {...state};
-    }
+    // case 'FAKE': {        // TODO для понимания reselect, удалить потом
+    //   return {...state};
+    // }
 
     case FOLLOW: // TODO нужен переключатель, тогл, а не этот бред
       return {
@@ -76,6 +79,8 @@ const usersReducer = (state: InitialStateType = initialState, action: any): Init
   }
 };
 
+type ActionsTypes = FollowSuccessActionType | UnfollowSuccessActionType | SetUsersActionType | SetCurrentPageActionType | SetTotalUsersCountActionType | ToggleIsFetchingActionType | ToggleFollowingProgressActionType;
+
 type FollowSuccessActionType = {type: typeof FOLLOW; userId: number};
 const followSuccess = (userId: number): FollowSuccessActionType => ({type: FOLLOW, userId});
 
@@ -98,8 +103,12 @@ type ToggleFollowingProgressActionType = {type: typeof TOGGLE_FOLLOWING_PROGRESS
 const toggleFollowingProgress = (isFetching: boolean, userId: number): ToggleFollowingProgressActionType => (
     {type: TOGGLE_FOLLOWING_PROGRESS, isFetching, userId});
 
+// Способ типизации санки
+type GetStateType = () => AppStateType;
+type DispatchType = Dispatch<ActionsTypes>;
+
 export const requestUsers = (page: number, pageSize: number) => {   // thunk creator принимает в параметры нужные данные и возращает thunk, которая через замыкание может достучаться к этим данным
-  return async (dispatch: any) => {
+  return async (dispatch: DispatchType, getState: GetStateType): Promise<void> => {
     dispatch(toggleIsFetching(true));
     dispatch(setCurrentPage(page));
 
@@ -110,7 +119,10 @@ export const requestUsers = (page: number, pageSize: number) => {   // thunk cre
   };
 };
 
-const followUnfollowFlow = async (dispatch: any, userId: number, apiMethod: any, actionCreator: any) => {
+const _followUnfollowFlow = async (dispatch: DispatchType,
+                                   userId: number,
+                                   apiMethod: any,
+                                   actionCreator: (userId: number) => FollowSuccessActionType | UnfollowSuccessActionType) => {
   dispatch(toggleFollowingProgress(true, userId)); // TODO мб поменять порядок параметров
   const data = await apiMethod(userId);
 
@@ -120,17 +132,20 @@ const followUnfollowFlow = async (dispatch: any, userId: number, apiMethod: any,
   dispatch(toggleFollowingProgress(false, userId));
 };
 
-export const follow = (userId: number) => {
-  return async (dispatch: any) => {
+// Другой способ типизации санки
+type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, ActionsTypes>;
+
+export const follow = (userId: number): ThunkType => {
+  return async (dispatch) => {
     let apiMethod = api.followUser.bind(api);
-    followUnfollowFlow(dispatch, userId, apiMethod, followSuccess);
+    _followUnfollowFlow(dispatch, userId, apiMethod, followSuccess);
   };
 };
 
-export const unfollow = (userId: number) => {
-  return async (dispatch: any) => {
+export const unfollow = (userId: number): ThunkType => {
+  return async (dispatch) => {
     let apiMethod = api.unFollowUser.bind(api);
-    followUnfollowFlow(dispatch,userId, apiMethod, unfollowSuccess);
+    _followUnfollowFlow(dispatch,userId, apiMethod, unfollowSuccess);
   };
 };
 
