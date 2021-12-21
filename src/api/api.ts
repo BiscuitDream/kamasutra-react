@@ -1,4 +1,5 @@
 import axios from "axios";
+import {UserProfileType} from "../types/types";
 
 const axiosInstance = axios.create({
   baseURL: 'https://social-network.samuraijs.com/api/1.0/',
@@ -9,18 +10,18 @@ const axiosInstance = axios.create({
 });
 
 export const api = {
-  getUsers(currentPage, pageSize) {
+  getUsers(currentPage: number, pageSize: number) {
     return axiosInstance
       .get(`users?page=${currentPage}&count=${pageSize}`)
       .then(response => response.data);
   },
 
-  followUser(userId) {
+  followUser(userId: number) {
     return axiosInstance
       .post(`follow/${userId}`)
       .then(response => response.data);
   },
-  unFollowUser(userId) {
+  unFollowUser(userId: number) {
     return axiosInstance
       .delete(`follow/${userId}`)
       .then(response => response.data);
@@ -28,12 +29,12 @@ export const api = {
 
   me() {
     return axiosInstance
-      .get('auth/me')
+      .get<MeResponseType>('auth/me')
       .then(response => response.data);
   },
-  login(email, password, rememberMe = false, captcha) {
+  login(email: string, password: string, rememberMe = false, captcha: string | null = null) {
     return axiosInstance
-      .post('/auth/login', {email, password, rememberMe, captcha})
+      .post<LoginResponseType>('/auth/login', {email, password, rememberMe, captcha})
       .then(response => response.data);
   },
   logout() {
@@ -42,29 +43,29 @@ export const api = {
       .then(response => response.data);
   },
 
-  getProfile(userId) {
+  getProfile(userId: number) {
     return axiosInstance
       .get(`profile/${userId}`)
       .then(response => response.data);
   },
-  getStatus(userId) {
+  getStatus(userId: number) {
     return axiosInstance
       .get(`/profile/status/${userId}`)
       .then(response => response.data);
   },
-  updateStatus(status) {
+  updateStatus(status: string) {
     return axiosInstance
       .put('/profile/status', {status: status})
       .then(response => response.data);
   },
-  uploadPhoto(photoFile) {
+  uploadPhoto(photoFile: any) {
     const formData = new FormData();
     formData.append('image', photoFile);
     return axiosInstance
       .put('/profile/photo', formData, {headers: {'Content-Type': 'multipart/form-data'}})
       .then(response => response.data);
   },
-  saveProfile(profile) {
+  saveProfile(profile: UserProfileType) {
     return axiosInstance
       .put('/profile', profile)
       .then(response => response.data);
@@ -76,3 +77,33 @@ export const api = {
       .then(response => response.data);
   }
 };
+
+export enum ResultCodeEnum {
+  Success = 0,
+  Error = 1
+}
+
+export enum ResultCodeForCaptcha {
+  CaptchaIsRequired = 10
+}
+
+// api.me().then((res:AxiosResponse<number>) => res.data.valueOf())
+// axiosInstance.get<string>('auth/me').then((res) => res.data.toUpperCase();
+
+type MeResponseType = {
+  data: {
+    id: number,
+    email: string,
+    login: string
+  },
+  resultCode: ResultCodeEnum,
+  messages: Array<string>
+}
+
+type LoginResponseType = {
+  data: {
+    userId: number
+  },
+  resultCode: ResultCodeEnum | ResultCodeForCaptcha,
+  messages: Array<string>
+}
