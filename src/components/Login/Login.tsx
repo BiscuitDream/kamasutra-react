@@ -1,12 +1,18 @@
-import {Field, reduxForm} from "redux-form";
+import {Field, InjectedFormProps, reduxForm} from "redux-form";
 import {Input} from "../common/CustomFields/CustomFields";
 import {required} from "../../utils/validators/validators";
 import {connect} from "react-redux";
 import {login} from "../../redux/auth-reducer";
 import {Redirect} from "react-router-dom";
 import styles from '../common/CustomFields/CustomFields.module.css';
+import React from "react";
+import {AppStateType} from "../../redux/redux-store";
 
-const LoginForm = ({handleSubmit, error, captchaUrl}) => {
+type LoginFormOwnPropsType = {
+  captchaUrl: string | null,
+}
+
+const LoginForm: React.FC<InjectedFormProps<LoginFormValuesType, LoginFormOwnPropsType> & LoginFormOwnPropsType> = ({handleSubmit, error, captchaUrl}) => {
   return (
     <form onSubmit={handleSubmit}>
       <p>
@@ -44,10 +50,26 @@ const LoginForm = ({handleSubmit, error, captchaUrl}) => {
   );
 };
 
-const LoginReduxForm = reduxForm({form: 'login'})(LoginForm);
+const LoginReduxForm = reduxForm<LoginFormValuesType, LoginFormOwnPropsType>({form: 'login'})(LoginForm);
 
-const Login = (props) => {
-  const onSubmit = (formData) => {
+type MapStatePropsType = {
+  isAuth: boolean,
+  captchaUrl: string | null
+};
+
+type MapDispatchPropsType = {
+  login: (email: string, password: string, rememberMe: boolean, captcha: string) => void
+};
+
+type LoginFormValuesType = {
+  email: string,
+  password: string,
+  rememberMe: boolean,
+  captcha: string
+};
+
+const Login: React.FC<MapStatePropsType & MapDispatchPropsType> = (props) => {
+  const onSubmit = (formData: LoginFormValuesType) => {
     console.log(formData);
     const {email, password, rememberMe, captcha} = formData;
     props.login(email, password, rememberMe, captcha);
@@ -65,7 +87,7 @@ const Login = (props) => {
   );
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: AppStateType): MapStatePropsType => ({
   isAuth: state.auth.isAuth,
   captchaUrl: state.auth.captchaUrl
 });

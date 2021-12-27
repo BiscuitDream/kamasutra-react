@@ -1,7 +1,20 @@
 import styles from './CustomFields.module.css';
+import React from "react";
+import {
+  GenericField,
+  GenericFieldHTMLAttributes,
+  WrappedFieldInputProps,
+  WrappedFieldMetaProps, WrappedFieldProps
+} from "redux-form";
 
-export const CustomField = (FormField) => ({input, meta: {error, touched, submitting, submitFailed, visited}, ...props}) => {
-  const hasError = touched && error; // TODO проработать случаи появления ошибки
+type PropsType = {
+  input: WrappedFieldInputProps,
+  meta: WrappedFieldMetaProps,
+  className?: string
+};
+// TODO типизацию FormField надо сделать нормально. пока не разобрался
+export const CustomField = (FormField: string | GenericField<{}> | any) => ({input, meta: {error, touched}, ...props}: WrappedFieldProps & GenericFieldHTMLAttributes): JSX.Element => {
+  const hasError = touched && error;
   return (
     <div className={styles.field}>
         <FormField className={hasError ? styles.error : ''} {...input} {...props} />
@@ -16,14 +29,14 @@ export const Input = CustomField('input');
 export const TextArea = CustomField('textarea');
 
 
-export const CustomFields = (props) => {
-  console.log(props)
-  return (
-    <div>
-      <input  />
-    </div>
-  );
-};
+// export const CustomFields = (props) => {
+//   console.log(props)
+//   return (
+//     <div>
+//       <input  />
+//     </div>
+//   );
+// };
 
 // const renderField = ({
 //                        input,
